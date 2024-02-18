@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GenModels.Models;
+namespace CodeBE_TEL.Models;
 
 public partial class ClassEventDAO
 {
@@ -17,15 +17,15 @@ public partial class ClassEventDAO
 
     public string? Description { get; set; }
 
-    public bool Oder { get; set; }
+    public bool Order { get; set; }
 
-    public DateTime CreateAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public DateTime EndAt { get; set; }
 
-    public DateTime UpdateAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-    public DateTime? DeleteAt { get; set; }
+    public DateTime? DeletedAt { get; set; }
 
     public virtual ClassroomDAO Classroom { get; set; } = null!;
 

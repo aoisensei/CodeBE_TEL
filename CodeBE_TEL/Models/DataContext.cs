@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace GenModels.Models;
+namespace CodeBE_TEL.Models;
 
 public partial class DataContext : DbContext
 {
@@ -70,12 +70,12 @@ public partial class DataContext : DbContext
             entity.ToTable("ClassEvent");
 
             entity.Property(e => e.Code).HasMaxLength(50);
-            entity.Property(e => e.CreateAt).HasColumnType("datetime");
-            entity.Property(e => e.DeleteAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.DeletedAt).HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.EndAt).HasColumnType("datetime");
             entity.Property(e => e.Name).HasMaxLength(500);
-            entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Classroom).WithMany(p => p.ClassEvents)
                 .HasForeignKey(d => d.ClassroomId)
@@ -88,11 +88,11 @@ public partial class DataContext : DbContext
             entity.ToTable("Classroom");
 
             entity.Property(e => e.Code).HasMaxLength(50);
-            entity.Property(e => e.CreateAt).HasColumnType("datetime");
-            entity.Property(e => e.DeleteAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.DeletedAt).HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(500);
-            entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<CommentDAO>(entity =>

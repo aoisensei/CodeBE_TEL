@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GenModels.Models;
+namespace CodeBE_TEL.Models;
 
 public partial class BoardDAO
 {
