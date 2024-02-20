@@ -1,32 +1,21 @@
 ﻿using CodeBE_TEL.Entities;
 using CodeBE_TEL.Repositories;
-using CodeBE_TEL.Services.CommentService;
 
-namespace CodeBE_TEL.Services.CommentService
+namespace CodeBE_TEL.Services.ClassroomService
 {
-    public interface ICommentService
+    public partial interface IClassroomService
     {
-        Task<List<Comment>> List();
-        Task<Comment> Get(long Id);
-        Task<Comment> Create(Comment Comment);
-        Task<Comment> Update(Comment Comment);
-        Task<Comment> Delete(Comment Comment);
+        Task<List<Comment>> ListComment();
+        Task<Comment> GetComment(long Id);
+        Task<Comment> CreateComment(Comment Comment);
+        Task<Comment> UpdateComment(Comment Comment);
+        Task<Comment> DeleteComment(Comment Comment);
     }
-    public class CommentService : ICommentService
+    public partial class ClassroomService : IClassroomService
     {
-        private IUOW UOW;
-        private ICommentValidator CommentValidator;
-        public CommentService(
-            IUOW UOW,
-            ICommentValidator CommentValidator
-        )
+        public async Task<Comment> CreateComment(Comment Comment)
         {
-            this.UOW = UOW;
-            this.CommentValidator = CommentValidator;
-        }
-        public async Task<Comment> Create(Comment Comment)
-        {
-            if (!await CommentValidator.Create(Comment))
+            if (!await ClassroomValidator.CreateComment(Comment))
                 return Comment;
 
             try
@@ -42,14 +31,14 @@ namespace CodeBE_TEL.Services.CommentService
             return null;
         }
 
-        public async Task<Comment> Delete(Comment Comment)
+        public async Task<Comment> DeleteComment(Comment Comment)
         {
-            if (!await CommentValidator.Delete(Comment))
+            if (!await ClassroomValidator.DeleteComment(Comment))
                 return Comment;
 
             try
             {
-                Comment = await Get(Comment.Id);
+                Comment = await GetComment(Comment.Id);
                 await UOW.CommentRepository.Delete(Comment);
                 return Comment;
             }
@@ -60,16 +49,16 @@ namespace CodeBE_TEL.Services.CommentService
             return null;
         }
 
-        public async Task<Comment> Get(long Id)
+        public async Task<Comment> GetComment(long Id)
         {
             Comment Comment = await UOW.CommentRepository.Get(Id);
             if (Comment == null)
                 return null;
-            await CommentValidator.Get(Comment);
+            await ClassroomValidator.GetComment(Comment);
             return Comment;
         }
 
-        public async Task<List<Comment>> List()
+        public async Task<List<Comment>> ListComment()
         {
             try
             {
@@ -83,9 +72,9 @@ namespace CodeBE_TEL.Services.CommentService
             return null;
         }
 
-        public async Task<Comment> Update(Comment Comment)
+        public async Task<Comment> UpdateComment(Comment Comment)
         {
-            if (!await CommentValidator.Update(Comment))
+            if (!await ClassroomValidator.UpdateComment(Comment))
                 return Comment;
             try
             {

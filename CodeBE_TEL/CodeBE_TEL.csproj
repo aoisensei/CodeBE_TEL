@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\ClassroomController\" />
     <Folder Include="Controllers\ClassEventController\" />
     <Folder Include="Controllers\CommentController\" />
     <Folder Include="Controllers\QuestionController\" />

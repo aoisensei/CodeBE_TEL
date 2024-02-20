@@ -3,7 +3,7 @@ using CodeBE_TEL.Repositories;
 
 namespace CodeBE_TEL.Services.ClassroomService
 {
-    public interface IClassroomService
+    public partial interface IClassroomService
     {
         Task<List<Classroom>> List();
         Task<Classroom> Get(long Id);
@@ -11,7 +11,7 @@ namespace CodeBE_TEL.Services.ClassroomService
         Task<Classroom> Update(Classroom Classroom);
         Task<Classroom> Delete(Classroom Classroom);
     }
-    public class ClassroomService : IClassroomService
+    public partial class ClassroomService : IClassroomService
     {
         private IUOW UOW;
         private IClassroomValidator ClassroomValidator;

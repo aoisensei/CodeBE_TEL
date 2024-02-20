@@ -1,39 +1,28 @@
 ﻿using CodeBE_TEL.Entities;
 using CodeBE_TEL.Repositories;
-using CodeBE_TEL.Services.ClassEventService;
 
-namespace CodeBE_TEL.Services.ClassEventService
+namespace CodeBE_TEL.Services.ClassroomService
 {
-    public interface IClassEventService
+    public partial interface IClassroomService
     {
-        Task<List<ClassEvent>> List();
-        Task<ClassEvent> Get(long Id);
-        Task<ClassEvent> Create(ClassEvent ClassEvent);
-        Task<ClassEvent> Update(ClassEvent ClassEvent);
-        Task<ClassEvent> Delete(ClassEvent ClassEvent);
+        Task<List<ClassEvent>> ListClassEvent();
+        Task<ClassEvent> GetClassEvent(long Id);
+        Task<ClassEvent> CreateClassEvent(ClassEvent ClassEvent);
+        Task<ClassEvent> UpdateClassEvent(ClassEvent ClassEvent);
+        Task<ClassEvent> DeleteClassEvent(ClassEvent ClassEvent);
     }
-    public class ClassEventService : IClassEventService
+    public partial class ClassroomService : IClassroomService
     {
-        private IUOW UOW;
-        private IClassEventValidator ClassEventValidator;
-        public ClassEventService(
-            IUOW UOW,
-            IClassEventValidator ClassEventValidator
-        )
+        public async Task<ClassEvent> CreateClassEvent(ClassEvent ClassEvent)
         {
-            this.UOW = UOW;
-            this.ClassEventValidator = ClassEventValidator;
-        }
-        public async Task<ClassEvent> Create(ClassEvent ClassEvent)
-        {
-            if (!await ClassEventValidator.Create(ClassEvent))
+            if (!await ClassroomValidator.CreateClassEvent(ClassEvent))
                 return ClassEvent;
 
             try
             {
                 ClassEvent.Code = string.Empty;
                 await UOW.ClassEventRepository.Create(ClassEvent);
-                await BuildCode(ClassEvent);
+                await BuildCodeClassEvent(ClassEvent);
                 ClassEvent = await UOW.ClassEventRepository.Get(ClassEvent.Id);
                 return ClassEvent;
             }
@@ -44,14 +33,14 @@ namespace CodeBE_TEL.Services.ClassEventService
             return null;
         }
 
-        public async Task<ClassEvent> Delete(ClassEvent ClassEvent)
+        public async Task<ClassEvent> DeleteClassEvent(ClassEvent ClassEvent)
         {
-            if (!await ClassEventValidator.Delete(ClassEvent))
+            if (!await ClassroomValidator.DeleteClassEvent(ClassEvent))
                 return ClassEvent;
 
             try
             {
-                ClassEvent = await Get(ClassEvent.Id);
+                ClassEvent = await GetClassEvent(ClassEvent.Id);
                 await UOW.ClassEventRepository.Delete(ClassEvent);
                 return ClassEvent;
             }
@@ -62,16 +51,16 @@ namespace CodeBE_TEL.Services.ClassEventService
             return null;
         }
 
-        public async Task<ClassEvent> Get(long Id)
+        public async Task<ClassEvent> GetClassEvent(long Id)
         {
             ClassEvent ClassEvent = await UOW.ClassEventRepository.Get(Id);
             if (ClassEvent == null)
                 return null;
-            await ClassEventValidator.Get(ClassEvent);
+            await ClassroomValidator.GetClassEvent(ClassEvent);
             return ClassEvent;
         }
 
-        public async Task<List<ClassEvent>> List()
+        public async Task<List<ClassEvent>> ListClassEvent()
         {
             try
             {
@@ -85,15 +74,15 @@ namespace CodeBE_TEL.Services.ClassEventService
             return null;
         }
 
-        public async Task<ClassEvent> Update(ClassEvent ClassEvent)
+        public async Task<ClassEvent> UpdateClassEvent(ClassEvent ClassEvent)
         {
-            if (!await ClassEventValidator.Update(ClassEvent))
+            if (!await ClassroomValidator.UpdateClassEvent(ClassEvent))
                 return ClassEvent;
             try
             {
                 var oldData = await UOW.ClassEventRepository.Get(ClassEvent.Id);
                 await UOW.ClassEventRepository.Update(ClassEvent);
-                await BuildCode(ClassEvent);
+                await BuildCodeClassEvent(ClassEvent);
                 ClassEvent = await UOW.ClassEventRepository.Get(ClassEvent.Id);
                 return ClassEvent;
             }
@@ -104,7 +93,7 @@ namespace CodeBE_TEL.Services.ClassEventService
             return null;
         }
 
-        private async Task BuildCode(ClassEvent ClassEvent)
+        private async Task BuildCodeClassEvent(ClassEvent ClassEvent)
         {
             ClassEvent.Code = "CE" + ClassEvent.Id;
             await UOW.ClassEventRepository.UpdateCode(ClassEvent);
