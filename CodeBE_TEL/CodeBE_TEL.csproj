@@ -22,10 +22,4 @@
     <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="7.102.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\ClassEventController\" />
-    <Folder Include="Controllers\CommentController\" />
-    <Folder Include="Controllers\QuestionController\" />
-  </ItemGroup>
-
 </Project>
