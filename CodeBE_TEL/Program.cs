@@ -1,6 +1,7 @@
 using CodeBE_TEL.Models;
 using CodeBE_TEL.Repositories;
 using CodeBE_TEL.Services.BoardService;
+using CodeBE_TEL.Services.ClassroomService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<IBoardValidator, BoardValidator>();
+builder.Services.AddScoped<IClassroomService, ClassroomService>();
+builder.Services.AddScoped<IClassroomValidator, ClassroomValidator>();
 builder.Services.AddScoped<IUOW, UOW>();
 
 var app = builder.Build();

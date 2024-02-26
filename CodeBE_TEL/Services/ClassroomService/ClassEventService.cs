@@ -20,11 +20,20 @@ namespace CodeBE_TEL.Services.ClassroomService
 
             try
             {
-                ClassEvent.Code = string.Empty;
-                await UOW.ClassEventRepository.Create(ClassEvent);
-                await BuildCodeClassEvent(ClassEvent);
-                ClassEvent = await UOW.ClassEventRepository.Get(ClassEvent.Id);
-                return ClassEvent;
+                var ClassroomId = await UOW.ClassroomRepository.Get(ClassEvent.ClassroomId);
+
+                if (ClassroomId != null)
+                {
+                    ClassEvent.Code = string.Empty;
+                    ClassEvent.CreatedAt = DateTime.Now;
+                    ClassEvent.UpdatedAt = DateTime.Now;
+                    ClassEvent.DeletedAt = null;
+                    await UOW.ClassEventRepository.Create(ClassEvent);
+                    await BuildCodeClassEvent(ClassEvent);
+                    ClassEvent = await UOW.ClassEventRepository.Get(ClassEvent.Id);
+                    return ClassEvent;
+                }
+                    
             }
             catch (Exception ex)
             {
@@ -81,6 +90,10 @@ namespace CodeBE_TEL.Services.ClassroomService
             try
             {
                 var oldData = await UOW.ClassEventRepository.Get(ClassEvent.Id);
+                ClassEvent.CreatedAt = oldData.CreatedAt;
+                ClassEvent.UpdatedAt = DateTime.Now;
+                ClassEvent.DeletedAt = null;
+                ClassEvent.ClassroomId = oldData.ClassroomId;
                 await UOW.ClassEventRepository.Update(ClassEvent);
                 await BuildCodeClassEvent(ClassEvent);
                 ClassEvent = await UOW.ClassEventRepository.Get(ClassEvent.Id);

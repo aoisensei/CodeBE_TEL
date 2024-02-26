@@ -84,7 +84,6 @@ namespace CodeBE_TEL.Controllers.ClassroomController
         {
             Classroom Classroom = new Classroom();
             Classroom.Id = Classroom_ClassroomDTO.Id;
-            Classroom.AppUserId = Classroom_ClassroomDTO.AppUserId;
             Classroom.Code = Classroom_ClassroomDTO.Code;
             Classroom.Description = Classroom_ClassroomDTO.Description;
             Classroom.CreatedAt = Classroom_ClassroomDTO.CreatedAt;

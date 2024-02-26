@@ -31,6 +31,9 @@ namespace CodeBE_TEL.Services.ClassroomService
             try
             {
                 Classroom.Code = string.Empty;
+                Classroom.CreatedAt = DateTime.Now;
+                Classroom.UpdatedAt = DateTime.Now;
+                Classroom.DeletedAt = null;
                 await UOW.ClassroomRepository.Create(Classroom);
                 await BuildCode(Classroom);
                 Classroom = await UOW.ClassroomRepository.Get(Classroom.Id);
@@ -91,6 +94,9 @@ namespace CodeBE_TEL.Services.ClassroomService
             try
             {
                 var oldData = await UOW.ClassroomRepository.Get(Classroom.Id);
+                Classroom.CreatedAt = oldData.CreatedAt;
+                Classroom.UpdatedAt = DateTime.Now;
+                Classroom.DeletedAt = null;
                 await UOW.ClassroomRepository.Update(Classroom);
                 await BuildCode(Classroom);
                 Classroom = await UOW.ClassroomRepository.Get(Classroom.Id);

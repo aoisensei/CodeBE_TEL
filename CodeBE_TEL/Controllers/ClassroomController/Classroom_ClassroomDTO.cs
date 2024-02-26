@@ -6,8 +6,6 @@ namespace CodeBE_TEL.Controllers.ClassroomController
     {
         public long Id { get; set; }
 
-        public long AppUserId { get; set; }
-
         public string Code { get; set; } = null!;
 
         public string Name { get; set; } = null!;
@@ -26,7 +24,6 @@ namespace CodeBE_TEL.Controllers.ClassroomController
         public Classroom_ClassroomDTO(Classroom Classroom)
         {
             Id = Classroom.Id;
-            AppUserId = Classroom.AppUserId;
             Code = Classroom.Code;
             Name = Classroom.Name;
             Description = Classroom.Description;

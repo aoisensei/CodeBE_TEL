@@ -4,8 +4,6 @@ public class Classroom
 {
     public long Id { get; set; }
 
-    public long AppUserId { get; set; }
-
     public string Code { get; set; } = null!;
 
     public string Name { get; set; } = null!;
