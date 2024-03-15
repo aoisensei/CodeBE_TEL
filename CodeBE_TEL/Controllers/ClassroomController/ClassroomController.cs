@@ -1,4 +1,5 @@
 ﻿
+using CodeBE_TEL.Common;
 using CodeBE_TEL.Entities;
 using CodeBE_TEL.Services.ClassroomService;
 using Microsoft.AspNetCore.Mvc;
@@ -9,21 +10,24 @@ namespace CodeBE_TEL.Controllers.ClassroomController
     public partial class ClassroomController : ControllerBase
     {
         private IClassroomService ClassroomService;
+        private IClassEventService ClassEventService;
 
         public ClassroomController(
-            IClassroomService ClassroomService
+            IClassroomService ClassroomService,
+            IClassEventService ClassEventService
         )
         {
             this.ClassroomService = ClassroomService;
+            this.ClassEventService = ClassEventService;
         }
 
         [Route(ClassroomRoute.List), HttpPost]
-        public async Task<ActionResult<List<Classroom_ClassroomDTO>>> List()
+        public async Task<ActionResult<List<Classroom_ClassroomDTO>>> List(FilterDTO FilterDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            List<Classroom> Classrooms = await ClassroomService.List();
+            List<Classroom> Classrooms = await ClassroomService.List(FilterDTO);
             List<Classroom_ClassroomDTO> Classroom_ClassroomDTOs = Classrooms
                 .Select(c => new Classroom_ClassroomDTO(c)).ToList();
 

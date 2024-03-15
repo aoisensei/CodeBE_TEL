@@ -1,17 +1,18 @@
-﻿using CodeBE_TEL.Entities;
+﻿using CodeBE_TEL.Common;
+using CodeBE_TEL.Entities;
 using CodeBE_TEL.Repositories;
 
 namespace CodeBE_TEL.Services.ClassroomService
 {
-    public partial interface IClassroomService
+    public interface IClassroomService
     {
-        Task<List<Classroom>> List();
+        Task<List<Classroom>> List(FilterDTO FilterDTO);
         Task<Classroom> Get(long Id);
         Task<Classroom> Create(Classroom Classroom);
         Task<Classroom> Update(Classroom Classroom);
         Task<Classroom> Delete(Classroom Classroom);
     }
-    public partial class ClassroomService : IClassroomService
+    public class ClassroomService : BaseService<Classroom>, IClassroomService
     {
         private IUOW UOW;
         private IClassroomValidator ClassroomValidator;
@@ -73,11 +74,14 @@ namespace CodeBE_TEL.Services.ClassroomService
             return Classroom;
         }
 
-        public async Task<List<Classroom>> List()
+        public async Task<List<Classroom>> List(FilterDTO FilterDTO)
         {
             try
             {
                 List<Classroom> Classrooms = await UOW.ClassroomRepository.List();
+
+                Classrooms = FilterData(Classrooms, FilterDTO);
+
                 return Classrooms;
             }
             catch (Exception ex)

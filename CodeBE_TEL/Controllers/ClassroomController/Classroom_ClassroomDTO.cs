@@ -6,9 +6,9 @@ namespace CodeBE_TEL.Controllers.ClassroomController
     {
         public long Id { get; set; }
 
-        public string Code { get; set; } = null!;
+        public string Code { get; set; }
 
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
 
         public string? Description { get; set; }
 
@@ -30,7 +30,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             CreatedAt = Classroom.CreatedAt;
             UpdatedAt = Classroom.UpdatedAt;
             DeletedAt = Classroom.DeletedAt;
-            ClassEvents = Classroom.ClassEvents.Select(x => new Classroom_ClassEventDTO(x)).ToList();
+            ClassEvents = Classroom.ClassEvents?.Select(x => new Classroom_ClassEventDTO(x)).ToList();
         }
     }
 }

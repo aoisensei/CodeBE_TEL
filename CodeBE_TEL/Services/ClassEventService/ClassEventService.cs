@@ -1,21 +1,33 @@
-﻿using CodeBE_TEL.Entities;
+﻿using CodeBE_TEL.Common;
+using CodeBE_TEL.Entities;
 using CodeBE_TEL.Repositories;
+using CodeBE_TEL.Services.ClassEventService;
 
 namespace CodeBE_TEL.Services.ClassroomService
 {
-    public partial interface IClassroomService
+    public interface IClassEventService
     {
-        Task<List<ClassEvent>> ListClassEvent();
-        Task<ClassEvent> GetClassEvent(long Id);
-        Task<ClassEvent> CreateClassEvent(ClassEvent ClassEvent);
-        Task<ClassEvent> UpdateClassEvent(ClassEvent ClassEvent);
-        Task<ClassEvent> DeleteClassEvent(ClassEvent ClassEvent);
+        Task<List<ClassEvent>> List(FilterDTO FilterDTO);
+        Task<ClassEvent> Get(long Id);
+        Task<ClassEvent> Create(ClassEvent ClassEvent);
+        Task<ClassEvent> Update(ClassEvent ClassEvent);
+        Task<ClassEvent> Delete(ClassEvent ClassEvent);
     }
-    public partial class ClassroomService : IClassroomService
+    public class ClassEventService : BaseService<ClassEvent>, IClassEventService
     {
-        public async Task<ClassEvent> CreateClassEvent(ClassEvent ClassEvent)
+        private IUOW UOW;
+        private IClassEventValidator ClassEventValidator;
+        public ClassEventService(
+            IUOW UOW,
+            IClassEventValidator ClassEventValidator
+        )
         {
-            if (!await ClassroomValidator.CreateClassEvent(ClassEvent))
+            this.UOW = UOW;
+            this.ClassEventValidator = ClassEventValidator;
+        }
+        public async Task<ClassEvent> Create(ClassEvent ClassEvent)
+        {
+            if (!await ClassEventValidator.Create(ClassEvent))
                 return ClassEvent;
 
             try
@@ -42,14 +54,14 @@ namespace CodeBE_TEL.Services.ClassroomService
             return null;
         }
 
-        public async Task<ClassEvent> DeleteClassEvent(ClassEvent ClassEvent)
+        public async Task<ClassEvent> Delete(ClassEvent ClassEvent)
         {
-            if (!await ClassroomValidator.DeleteClassEvent(ClassEvent))
+            if (!await ClassEventValidator.Delete(ClassEvent))
                 return ClassEvent;
 
             try
             {
-                ClassEvent = await GetClassEvent(ClassEvent.Id);
+                ClassEvent = await Get(ClassEvent.Id);
                 await UOW.ClassEventRepository.Delete(ClassEvent);
                 return ClassEvent;
             }
@@ -60,20 +72,23 @@ namespace CodeBE_TEL.Services.ClassroomService
             return null;
         }
 
-        public async Task<ClassEvent> GetClassEvent(long Id)
+        public async Task<ClassEvent> Get(long Id)
         {
             ClassEvent ClassEvent = await UOW.ClassEventRepository.Get(Id);
             if (ClassEvent == null)
                 return null;
-            await ClassroomValidator.GetClassEvent(ClassEvent);
+            await ClassEventValidator.Get(ClassEvent);
             return ClassEvent;
         }
 
-        public async Task<List<ClassEvent>> ListClassEvent()
+        public async Task<List<ClassEvent>> List(FilterDTO FilterDTO)
         {
             try
             {
-                List<ClassEvent> ClassEvents = await UOW.ClassEventRepository.List();
+                List<ClassEvent> ClassEvents = await UOW.ClassEventRepository.List(1);
+
+                ClassEvents = FilterData(ClassEvents, FilterDTO);
+
                 return ClassEvents;
             }
             catch (Exception ex)
@@ -83,9 +98,9 @@ namespace CodeBE_TEL.Services.ClassroomService
             return null;
         }
 
-        public async Task<ClassEvent> UpdateClassEvent(ClassEvent ClassEvent)
+        public async Task<ClassEvent> Update(ClassEvent ClassEvent)
         {
-            if (!await ClassroomValidator.UpdateClassEvent(ClassEvent))
+            if (!await ClassEventValidator.Update(ClassEvent))
                 return ClassEvent;
             try
             {

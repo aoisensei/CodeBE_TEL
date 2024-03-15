@@ -1,10 +1,23 @@
 using CodeBE_TEL.Models;
 using CodeBE_TEL.Repositories;
 using CodeBE_TEL.Services.BoardService;
+using CodeBE_TEL.Services.ClassEventService;
 using CodeBE_TEL.Services.ClassroomService;
 using Microsoft.EntityFrameworkCore;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3001");
+            policy.WithMethods("POST", "PUT", "DELETE");
+            policy.WithHeaders("Content-Type");
+        });
+});
 
 // Add services to the container.
 
@@ -20,6 +33,8 @@ builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<IBoardValidator, BoardValidator>();
 builder.Services.AddScoped<IClassroomService, ClassroomService>();
 builder.Services.AddScoped<IClassroomValidator, ClassroomValidator>();
+builder.Services.AddScoped<IClassEventService, ClassEventService>();
+builder.Services.AddScoped<IClassEventValidator, ClassEventValidator>();
 builder.Services.AddScoped<IUOW, UOW>();
 
 var app = builder.Build();
@@ -30,6 +45,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 

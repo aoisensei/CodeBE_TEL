@@ -1,6 +1,8 @@
-﻿namespace CodeBE_TEL.Entities;
+﻿using CodeBE_TEL.Common;
 
-public class Classroom
+namespace CodeBE_TEL.Entities;
+
+public class Classroom : IFilterable
 {
     public long Id { get; set; }
 

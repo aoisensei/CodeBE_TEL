@@ -1,7 +1,9 @@
 ﻿
+using CodeBE_TEL.Common;
+
 namespace CodeBE_TEL.Entities;
 
-public class ClassEvent
+public class ClassEvent : IFilterable
 {
     public long Id { get; set; }
 

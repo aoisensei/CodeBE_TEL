@@ -1,12 +1,13 @@
 ﻿using CodeBE_TEL.Entities;
 using CodeBE_TEL.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CodeBE_TEL.Repositories
 {
     public interface IClassEventRepository
     {
-        Task<List<ClassEvent>> List();
+        Task<List<ClassEvent>> List(long Id);
         Task<ClassEvent> Get(long Id);
         Task<bool> Create(ClassEvent ClassEvent);
         Task<bool> Update(ClassEvent ClassEvent);
@@ -114,10 +115,11 @@ namespace CodeBE_TEL.Repositories
             return ClassEvent;
         }
 
-        public async Task<List<ClassEvent>> List()
+        public async Task<List<ClassEvent>> List(long Id)
         {
             List<ClassEvent> ClassEvents = await DataContext.ClassEvents.AsNoTracking()
             .Where(x => x.DeletedAt == null)
+            .Where(x => x.ClassroomId == Id)
             .Select(x => new ClassEvent
             {
                 Id = x.Id,

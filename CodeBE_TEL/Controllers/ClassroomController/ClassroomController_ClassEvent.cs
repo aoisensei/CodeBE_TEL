@@ -1,4 +1,5 @@
-﻿using CodeBE_TEL.Entities;
+﻿using CodeBE_TEL.Common;
+using CodeBE_TEL.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,12 +8,12 @@ namespace CodeBE_TEL.Controllers.ClassroomController
     public partial class ClassroomController
     {
         [Route(ClassroomRoute.ListClassEvent), HttpPost]
-        public async Task<ActionResult<List<Classroom_ClassEventDTO>>> ListClassEvent()
+        public async Task<ActionResult<List<Classroom_ClassEventDTO>>> ListClassEvent([FromBody] FilterDTO FilterDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            List<ClassEvent> ClassEvents = await ClassroomService.ListClassEvent();
+            List<ClassEvent> ClassEvents = await ClassEventService.List(FilterDTO);
             List<Classroom_ClassEventDTO> Classroom_ClassEventDTOs = ClassEvents
                 .Select(c => new Classroom_ClassEventDTO(c)).ToList();
 
@@ -25,7 +26,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ClassEvent ClassEvent = await ClassroomService.GetClassEvent(Classroom_ClassEventDTO.Id);
+            ClassEvent ClassEvent = await ClassEventService.Get(Classroom_ClassEventDTO.Id);
 
             return new Classroom_ClassEventDTO(ClassEvent);
         }
@@ -38,7 +39,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
 
             ClassEvent ClassEvent = ConvertClassEventDTOToEntity(Classroom_ClassEventDTO);
 
-            ClassEvent = await ClassroomService.CreateClassEvent(ClassEvent);
+            ClassEvent = await ClassEventService.Create(ClassEvent);
 
             return new Classroom_ClassEventDTO(ClassEvent);
         }
@@ -51,7 +52,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
 
             ClassEvent ClassEvent = ConvertClassEventDTOToEntity(Classroom_ClassEventDTO);
 
-            ClassEvent = await ClassroomService.UpdateClassEvent(ClassEvent);
+            ClassEvent = await ClassEventService.Update(ClassEvent);
 
             return new Classroom_ClassEventDTO(ClassEvent);
         }
@@ -64,7 +65,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
 
             ClassEvent ClassEvent = ConvertClassEventDTOToEntity(Classroom_ClassEventDTO);
 
-            ClassEvent = await ClassroomService.DeleteClassEvent(ClassEvent);
+            ClassEvent = await ClassEventService.Delete(ClassEvent);
 
             return new Classroom_ClassEventDTO(ClassEvent);
         }
