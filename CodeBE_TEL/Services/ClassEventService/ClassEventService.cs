@@ -88,6 +88,14 @@ namespace CodeBE_TEL.Services.ClassroomService
                 List<ClassEvent> ClassEvents = await UOW.ClassEventRepository.List(1);
 
                 ClassEvents = FilterData(ClassEvents, FilterDTO);
+                if (FilterDTO.Pinned != null)
+                {
+                    ClassEvents = ClassEvents.Where(x => x.Order == FilterDTO.Pinned).ToList();
+                }
+                if (FilterDTO.IsNotification != null)
+                {
+                    ClassEvents = ClassEvents.Where(x => x.IsNotification == FilterDTO.IsNotification).ToList();
+                }
 
                 return ClassEvents;
             }
