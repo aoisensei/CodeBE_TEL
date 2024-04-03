@@ -49,7 +49,7 @@ namespace CodeBE_TEL.Services.ClassroomService
             }
             catch (Exception ex)
             {
-
+                throw new Exception();
             }
             return null;
         }
@@ -90,11 +90,11 @@ namespace CodeBE_TEL.Services.ClassroomService
                 ClassEvents = FilterData(ClassEvents, FilterDTO);
                 if (FilterDTO.Pinned != null)
                 {
-                    ClassEvents = ClassEvents.Where(x => x.Order == FilterDTO.Pinned).ToList();
+                    ClassEvents = ClassEvents.Where(x => x.Pinned == FilterDTO.Pinned).ToList();
                 }
                 if (FilterDTO.IsNotification != null)
                 {
-                    ClassEvents = ClassEvents.Where(x => x.IsNotification == FilterDTO.IsNotification).ToList();
+                    ClassEvents = ClassEvents.Where(x => x.IsClassWork == FilterDTO.IsNotification).ToList();
                 }
 
                 return ClassEvents;

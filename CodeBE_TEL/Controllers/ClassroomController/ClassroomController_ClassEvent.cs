@@ -77,9 +77,10 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             ClassEvent.ClassroomId = Classroom_ClassEventDTO.ClassroomId;
             ClassEvent.Code = Classroom_ClassEventDTO.Code;
             ClassEvent.Name = Classroom_ClassEventDTO.Name;
-            ClassEvent.IsNotification = Classroom_ClassEventDTO.IsNotification;
+            ClassEvent.IsClassWork = Classroom_ClassEventDTO.IsClassWork;
+            ClassEvent.Instruction = Classroom_ClassEventDTO.Instruction;
             ClassEvent.Description = Classroom_ClassEventDTO.Description;
-            ClassEvent.Order = Classroom_ClassEventDTO.Order;
+            ClassEvent.Pinned = Classroom_ClassEventDTO.Pinned;
             ClassEvent.CreatedAt = Classroom_ClassEventDTO.CreatedAt;
             ClassEvent.EndAt = Classroom_ClassEventDTO.EndAt;
             ClassEvent.DeletedAt = Classroom_ClassEventDTO.DeletedAt;

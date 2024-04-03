@@ -12,15 +12,17 @@ public class Classroom_ClassEventDTO
 
     public string Name { get; set; } = null!;
 
-    public bool IsNotification { get; set; }
+    public bool IsClassWork { get; set; }
+
+    public string? Instruction { get; set; }
+
+    public bool Pinned { get; set; }
 
     public string? Description { get; set; }
 
-    public bool Order { get; set; }
-
     public DateTime CreatedAt { get; set; }
 
-    public DateTime EndAt { get; set; }
+    public DateTime? EndAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
 
@@ -37,7 +39,9 @@ public class Classroom_ClassEventDTO
         Code = ClassEvent.Code;
         Name = ClassEvent.Name;
         Description = ClassEvent.Description;
-        Order = ClassEvent.Order;
+        Instruction = ClassEvent.Instruction;
+        Pinned = ClassEvent.Pinned;
+        IsClassWork = ClassEvent.IsClassWork;
         CreatedAt = ClassEvent.CreatedAt;
         EndAt = ClassEvent.EndAt;
         UpdatedAt = ClassEvent.UpdatedAt;

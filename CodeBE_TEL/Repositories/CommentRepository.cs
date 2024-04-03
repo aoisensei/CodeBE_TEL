@@ -25,7 +25,7 @@ namespace CodeBE_TEL.Repositories
             CommentDAO CommentDAO = new CommentDAO();
             CommentDAO.ClassEventId = Comment.ClassEventId;
             CommentDAO.Description = Comment.Description;
-            DataContext.Add(CommentDAO);
+            DataContext.Comments.Add(CommentDAO);
             await DataContext.SaveChangesAsync();
             return true;
         }
@@ -58,8 +58,9 @@ namespace CodeBE_TEL.Repositories
                         Code = x.ClassEvent.Code,
                         ClassroomId = x.ClassEvent.ClassroomId,
                         Description = x.ClassEvent.Description,
-                        IsNotification = x.ClassEvent.IsNotification,
-                        Order = x.ClassEvent.Order,
+                        Instruction = x.ClassEvent.Instruction,
+                        IsClassWork = x.ClassEvent.IsClassWork,
+                        Pinned = x.ClassEvent.Pinned,
                         CreatedAt = x.ClassEvent.CreatedAt,
                         EndAt = x.ClassEvent.EndAt,
                         UpdatedAt = x.ClassEvent.UpdatedAt,
@@ -95,8 +96,9 @@ namespace CodeBE_TEL.Repositories
                     Code = x.ClassEvent.Code,
                     ClassroomId = x.ClassEvent.ClassroomId,
                     Description = x.ClassEvent.Description,
-                    IsNotification = x.ClassEvent.IsNotification,
-                    Order = x.ClassEvent.Order,
+                    Instruction = x.ClassEvent.Instruction,
+                    IsClassWork = x.ClassEvent.IsClassWork,
+                    Pinned = x.ClassEvent.Pinned,
                     CreatedAt = x.ClassEvent.CreatedAt,
                     EndAt = x.ClassEvent.EndAt,
                     UpdatedAt = x.ClassEvent.UpdatedAt,

@@ -31,7 +31,7 @@ namespace CodeBE_TEL.Repositories
             ClassroomDAO.CreatedAt = Classroom.CreatedAt;
             ClassroomDAO.UpdatedAt = Classroom.UpdatedAt;
             ClassroomDAO.DeletedAt = Classroom.DeletedAt;
-            DataContext.Add(ClassroomDAO);
+            DataContext.Classrooms.Add(ClassroomDAO);
             await DataContext.SaveChangesAsync();
             Classroom.Id = ClassroomDAO.Id;
             await SaveReference(Classroom);
@@ -106,8 +106,9 @@ namespace CodeBE_TEL.Repositories
                     Code = x.Code,
                     ClassroomId = x.ClassroomId,
                     Description = x.Description,
-                    IsNotification = x.IsNotification,
-                    Order = x.Order,
+                    Instruction = x.Instruction,
+                    IsClassWork = x.IsClassWork,
+                    Pinned = x.Pinned,
                     CreatedAt = x.CreatedAt,
                     EndAt = x.EndAt,
                     UpdatedAt = x.UpdatedAt,
@@ -189,9 +190,10 @@ namespace CodeBE_TEL.Repositories
                     ClassEventDAO.ClassroomId = ClassEvent.ClassroomId;
                     ClassEventDAO.Code = ClassEvent.Code;
                     ClassEventDAO.Name = ClassEvent.Name;
-                    ClassEventDAO.IsNotification = ClassEvent.IsNotification;
+                    ClassEventDAO.IsClassWork = ClassEvent.IsClassWork;
                     ClassEventDAO.Description = ClassEvent.Description;
-                    ClassEventDAO.Order = ClassEvent.Order;
+                    ClassEventDAO.Pinned = ClassEvent.Pinned;
+                    ClassEventDAO.Instruction = ClassEvent.Instruction;
                     ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
                     ClassEventDAO.EndAt = ClassEvent.EndAt;
                     ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;

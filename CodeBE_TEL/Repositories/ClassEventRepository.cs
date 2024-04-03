@@ -29,14 +29,15 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.ClassroomId = ClassEvent.ClassroomId;
             ClassEventDAO.Code = ClassEvent.Code;
             ClassEventDAO.Name = ClassEvent.Name;
-            ClassEventDAO.IsNotification = ClassEvent.IsNotification;
+            ClassEventDAO.IsClassWork = ClassEvent.IsClassWork;
             ClassEventDAO.Description = ClassEvent.Description;
-            ClassEventDAO.Order = ClassEvent.Order;
+            ClassEventDAO.Pinned = ClassEvent.Pinned;
+            ClassEventDAO.Instruction = ClassEvent.Instruction;
             ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
             ClassEventDAO.EndAt = ClassEvent.EndAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;
             ClassEventDAO.DeletedAt = ClassEvent.DeletedAt;
-            DataContext.Add(ClassEventDAO);
+            DataContext.ClassEvents.Add(ClassEventDAO);
             await DataContext.SaveChangesAsync();
             ClassEvent.Id = ClassEventDAO.Id;
             await SaveReference(ClassEvent);
@@ -68,8 +69,9 @@ namespace CodeBE_TEL.Repositories
                     Code = x.Code,
                     ClassroomId = x.ClassroomId,
                     Description = x.Description,
-                    IsNotification = x.IsNotification,
-                    Order = x.Order,
+                    Instruction = x.Instruction,
+                    IsClassWork = x.IsClassWork,
+                    Pinned = x.Pinned,
                     CreatedAt = x.CreatedAt,
                     EndAt = x.EndAt,
                     UpdatedAt = x.UpdatedAt,
@@ -127,8 +129,9 @@ namespace CodeBE_TEL.Repositories
                 Code = x.Code,
                 ClassroomId = x.ClassroomId,
                 Description = x.Description,
-                IsNotification = x.IsNotification,
-                Order = x.Order,
+                Instruction = x.Instruction,
+                IsClassWork = x.IsClassWork,
+                Pinned = x.Pinned,
                 CreatedAt = x.CreatedAt,
                 EndAt = x.EndAt,
                 UpdatedAt = x.UpdatedAt,
@@ -190,9 +193,10 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.ClassroomId = ClassEvent.ClassroomId;
             ClassEventDAO.Code = ClassEvent.Code;
             ClassEventDAO.Name = ClassEvent.Name;
-            ClassEventDAO.IsNotification = ClassEvent.IsNotification;
+            ClassEventDAO.IsClassWork = ClassEvent.IsClassWork;
             ClassEventDAO.Description = ClassEvent.Description;
-            ClassEventDAO.Order = ClassEvent.Order;
+            ClassEventDAO.Pinned = ClassEvent.Pinned;
+            ClassEventDAO.Instruction = ClassEvent.Instruction;
             ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
             ClassEventDAO.EndAt = ClassEvent.EndAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;

@@ -29,7 +29,7 @@ namespace CodeBE_TEL.Repositories
             QuestionDAO.Name = Question.Name;
             QuestionDAO.QuestionAnswer = Question.QuestionAnswer;
             QuestionDAO.StudentAnswer = Question.StudentAnswer;
-            DataContext.Add(QuestionDAO);
+            DataContext.Questions.Add(QuestionDAO);
             await DataContext.SaveChangesAsync();
             return true;
         }
@@ -65,8 +65,9 @@ namespace CodeBE_TEL.Repositories
                         Code = x.ClassEvent.Code,
                         ClassroomId = x.ClassEvent.ClassroomId,
                         Description = x.ClassEvent.Description,
-                        IsNotification = x.ClassEvent.IsNotification,
-                        Order = x.ClassEvent.Order,
+                        Instruction = x.ClassEvent.Instruction,
+                        IsClassWork = x.ClassEvent.IsClassWork,
+                        Pinned = x.ClassEvent.Pinned,
                         CreatedAt = x.ClassEvent.CreatedAt,
                         EndAt = x.ClassEvent.EndAt,
                         UpdatedAt = x.ClassEvent.UpdatedAt,
@@ -105,8 +106,9 @@ namespace CodeBE_TEL.Repositories
                     Code = x.ClassEvent.Code,
                     ClassroomId = x.ClassEvent.ClassroomId,
                     Description = x.ClassEvent.Description,
-                    IsNotification = x.ClassEvent.IsNotification,
-                    Order = x.ClassEvent.Order,
+                    Instruction = x.ClassEvent.Instruction,
+                    IsClassWork = x.ClassEvent.IsClassWork,
+                    Pinned = x.ClassEvent.Pinned,
                     CreatedAt = x.ClassEvent.CreatedAt,
                     EndAt = x.ClassEvent.EndAt,
                     UpdatedAt = x.ClassEvent.UpdatedAt,
