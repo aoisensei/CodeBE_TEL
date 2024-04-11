@@ -1,4 +1,5 @@
 ﻿using CodeBE_TEL.Entities;
+using System.Xml.Linq;
 
 namespace CodeBE_TEL.Controllers.ClassroomController
 {
@@ -10,11 +11,13 @@ namespace CodeBE_TEL.Controllers.ClassroomController
 
         public string Name { get; set; } = null!;
 
-        public string QuestionAnswer { get; set; } = null!;
+        public string CorrectAnswer { get; set; } = null!;
 
         public string? StudentAnswer { get; set; }
 
         public string? Description { get; set; }
+
+        public List<Classroom_AnswerDTO> Answers { get; set; }
 
         public Classroom_QuestionDTO() { }
         public Classroom_QuestionDTO(Question Question)
@@ -22,9 +25,10 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             Id = Question.Id;
             ClassEventId = Question.ClassEventId;
             Name = Question.Name;
-            QuestionAnswer = Question.QuestionAnswer;
+            CorrectAnswer = Question.CorrectAnswer;
             StudentAnswer = Question.StudentAnswer;
             Description = Question.Description;
+            Answers = Question.Answers.Select(x => new Classroom_AnswerDTO(x)).ToList();
         }
     }
 }

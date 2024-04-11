@@ -27,6 +27,7 @@ namespace CodeBE_TEL.Repositories
             CommentDAO.Description = Comment.Description;
             DataContext.Comments.Add(CommentDAO);
             await DataContext.SaveChangesAsync();
+            Comment.Id = CommentDAO.Id;
             return true;
         }
 
@@ -58,7 +59,6 @@ namespace CodeBE_TEL.Repositories
                         Code = x.ClassEvent.Code,
                         ClassroomId = x.ClassEvent.ClassroomId,
                         Description = x.ClassEvent.Description,
-                        Instruction = x.ClassEvent.Instruction,
                         IsClassWork = x.ClassEvent.IsClassWork,
                         Pinned = x.ClassEvent.Pinned,
                         CreatedAt = x.ClassEvent.CreatedAt,
@@ -96,7 +96,6 @@ namespace CodeBE_TEL.Repositories
                     Code = x.ClassEvent.Code,
                     ClassroomId = x.ClassEvent.ClassroomId,
                     Description = x.ClassEvent.Description,
-                    Instruction = x.ClassEvent.Instruction,
                     IsClassWork = x.ClassEvent.IsClassWork,
                     Pinned = x.ClassEvent.Pinned,
                     CreatedAt = x.ClassEvent.CreatedAt,

@@ -106,7 +106,6 @@ namespace CodeBE_TEL.Repositories
                     Code = x.Code,
                     ClassroomId = x.ClassroomId,
                     Description = x.Description,
-                    Instruction = x.Instruction,
                     IsClassWork = x.IsClassWork,
                     Pinned = x.Pinned,
                     CreatedAt = x.CreatedAt,
@@ -193,7 +192,6 @@ namespace CodeBE_TEL.Repositories
                     ClassEventDAO.IsClassWork = ClassEvent.IsClassWork;
                     ClassEventDAO.Description = ClassEvent.Description;
                     ClassEventDAO.Pinned = ClassEvent.Pinned;
-                    ClassEventDAO.Instruction = ClassEvent.Instruction;
                     ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
                     ClassEventDAO.EndAt = ClassEvent.EndAt;
                     ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;

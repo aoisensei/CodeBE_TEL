@@ -15,8 +15,6 @@ public partial class ClassEventDAO
 
     public bool IsClassWork { get; set; }
 
-    public string? Instruction { get; set; }
-
     public bool Pinned { get; set; }
 
     public DateTime CreatedAt { get; set; }

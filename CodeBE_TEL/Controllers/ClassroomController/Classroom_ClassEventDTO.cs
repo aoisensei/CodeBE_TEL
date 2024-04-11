@@ -14,8 +14,6 @@ public class Classroom_ClassEventDTO
 
     public bool IsClassWork { get; set; }
 
-    public string? Instruction { get; set; }
-
     public bool Pinned { get; set; }
 
     public string? Description { get; set; }
@@ -39,7 +37,6 @@ public class Classroom_ClassEventDTO
         Code = ClassEvent.Code;
         Name = ClassEvent.Name;
         Description = ClassEvent.Description;
-        Instruction = ClassEvent.Instruction;
         Pinned = ClassEvent.Pinned;
         IsClassWork = ClassEvent.IsClassWork;
         CreatedAt = ClassEvent.CreatedAt;

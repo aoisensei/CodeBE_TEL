@@ -15,8 +15,6 @@ public class ClassEvent : IFilterable
 
     public bool IsClassWork { get; set; }
 
-    public string? Instruction { get; set; }
-
     public bool Pinned { get; set; }
 
     public string? Description { get; set; }

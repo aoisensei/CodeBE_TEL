@@ -32,7 +32,6 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.IsClassWork = ClassEvent.IsClassWork;
             ClassEventDAO.Description = ClassEvent.Description;
             ClassEventDAO.Pinned = ClassEvent.Pinned;
-            ClassEventDAO.Instruction = ClassEvent.Instruction;
             ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
             ClassEventDAO.EndAt = ClassEvent.EndAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;
@@ -69,7 +68,6 @@ namespace CodeBE_TEL.Repositories
                     Code = x.Code,
                     ClassroomId = x.ClassroomId,
                     Description = x.Description,
-                    Instruction = x.Instruction,
                     IsClassWork = x.IsClassWork,
                     Pinned = x.Pinned,
                     CreatedAt = x.CreatedAt,
@@ -109,7 +107,7 @@ namespace CodeBE_TEL.Repositories
                     ClassEventId = x.ClassEventId,
                     Description = x.Description,
                     Name = x.Name,
-                    QuestionAnswer = x.QuestionAnswer,
+                    CorrectAnswer = x.CorrectAnswer,
                     StudentAnswer = x.StudentAnswer,
 
                 }).ToListAsync();
@@ -129,7 +127,6 @@ namespace CodeBE_TEL.Repositories
                 Code = x.Code,
                 ClassroomId = x.ClassroomId,
                 Description = x.Description,
-                Instruction = x.Instruction,
                 IsClassWork = x.IsClassWork,
                 Pinned = x.Pinned,
                 CreatedAt = x.CreatedAt,
@@ -164,7 +161,7 @@ namespace CodeBE_TEL.Repositories
                     ClassEventId = x.ClassEventId,
                     Description = x.Description,
                     Name = x.Name,
-                    QuestionAnswer = x.QuestionAnswer,
+                    CorrectAnswer = x.CorrectAnswer,
                     StudentAnswer = x.StudentAnswer,
 
                 }).ToListAsync();
@@ -196,13 +193,12 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.IsClassWork = ClassEvent.IsClassWork;
             ClassEventDAO.Description = ClassEvent.Description;
             ClassEventDAO.Pinned = ClassEvent.Pinned;
-            ClassEventDAO.Instruction = ClassEvent.Instruction;
             ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
             ClassEventDAO.EndAt = ClassEvent.EndAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;
             ClassEventDAO.DeletedAt = ClassEvent.DeletedAt;
             await DataContext.SaveChangesAsync();
-            await SaveReference(ClassEvent);
+            //await SaveReference(ClassEvent);
             return true;
         }
 
@@ -268,7 +264,7 @@ namespace CodeBE_TEL.Repositories
                     QuestionDAO.Id = Question.Id;
                     QuestionDAO.ClassEventId = ClassEvent.Id;
                     QuestionDAO.Name = Question.Name;
-                    QuestionDAO.QuestionAnswer = Question.QuestionAnswer;
+                    QuestionDAO.CorrectAnswer = Question.CorrectAnswer;
                     QuestionDAO.StudentAnswer = Question.StudentAnswer;
                     QuestionDAO.Description = Question.Description;
                     QuestionDAOs.Add(QuestionDAO);

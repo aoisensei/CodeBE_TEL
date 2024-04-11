@@ -15,6 +15,8 @@ public partial class DataContext : DbContext
     {
     }
 
+    public virtual DbSet<AnswerDAO> Answers { get; set; }
+
     public virtual DbSet<BoardDAO> Boards { get; set; }
 
     public virtual DbSet<CardDAO> Cards { get; set; }
@@ -36,6 +38,19 @@ public partial class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AnswerDAO>(entity =>
+        {
+            entity.ToTable("Answer");
+
+            entity.Property(e => e.Code).HasMaxLength(5);
+            entity.Property(e => e.Name).HasMaxLength(500);
+
+            entity.HasOne(d => d.Question).WithMany(p => p.Answers)
+                .HasForeignKey(d => d.QuestionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Answer_Question");
+        });
+
         modelBuilder.Entity<BoardDAO>(entity =>
         {
             entity.ToTable("Board");
@@ -74,7 +89,6 @@ public partial class DataContext : DbContext
             entity.Property(e => e.DeletedAt).HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.EndAt).HasColumnType("datetime");
-            entity.Property(e => e.Instruction).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(500);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
@@ -131,10 +145,10 @@ public partial class DataContext : DbContext
         {
             entity.ToTable("Question");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CorrectAnswer).HasMaxLength(5);
             entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Instruction).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(500);
-            entity.Property(e => e.QuestionAnswer).HasMaxLength(5);
             entity.Property(e => e.StudentAnswer).HasMaxLength(5);
 
             entity.HasOne(d => d.ClassEvent).WithMany(p => p.Questions)

@@ -102,7 +102,6 @@ namespace CodeBE_TEL.Controllers.ClassroomController
                     Name = x.Name,
                     IsClassWork = x.IsClassWork,
                     Description = x.Description,
-                    Instruction = x.Instruction,
                     Pinned = x.Pinned,
                     CreatedAt = x.CreatedAt,
                     EndAt = x.EndAt,
@@ -120,7 +119,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
                         Description = y.Description,
                         ClassEventId = y.ClassEventId,
                         Name = y.Name,
-                        QuestionAnswer = y.QuestionAnswer,
+                        CorrectAnswer = y.CorrectAnswer,
                         StudentAnswer = y.StudentAnswer,
                     }).ToList(),
                 }).ToList();
