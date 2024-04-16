@@ -20,6 +20,7 @@ public class Classroom_ClassEventDTO
 
     public DateTime CreatedAt { get; set; }
 
+    public DateTime? StartAt { get; set; }
     public DateTime? EndAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
@@ -41,6 +42,7 @@ public class Classroom_ClassEventDTO
         IsClassWork = ClassEvent.IsClassWork;
         CreatedAt = ClassEvent.CreatedAt;
         EndAt = ClassEvent.EndAt;
+        StartAt = ClassEvent.StartAt;
         UpdatedAt = ClassEvent.UpdatedAt;
         DeletedAt = ClassEvent.DeletedAt;
         Comments = ClassEvent.Comments?.Select(x => new Classroom_CommentDTO(x)).ToList();

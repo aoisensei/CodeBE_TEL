@@ -34,6 +34,7 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.Pinned = ClassEvent.Pinned;
             ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
             ClassEventDAO.EndAt = ClassEvent.EndAt;
+            ClassEventDAO.StartAt = ClassEvent.StartAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;
             ClassEventDAO.DeletedAt = ClassEvent.DeletedAt;
             DataContext.ClassEvents.Add(ClassEventDAO);
@@ -193,6 +194,7 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.IsClassWork = ClassEvent.IsClassWork;
             ClassEventDAO.Description = ClassEvent.Description;
             ClassEventDAO.Pinned = ClassEvent.Pinned;
+            ClassEventDAO.StartAt = ClassEvent.StartAt;
             ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
             ClassEventDAO.EndAt = ClassEvent.EndAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;

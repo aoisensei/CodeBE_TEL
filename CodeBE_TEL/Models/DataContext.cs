@@ -90,6 +90,7 @@ public partial class DataContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.EndAt).HasColumnType("datetime");
             entity.Property(e => e.Name).HasMaxLength(500);
+            entity.Property(e => e.StartAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Classroom).WithMany(p => p.ClassEvents)

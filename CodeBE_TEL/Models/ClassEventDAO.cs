@@ -27,6 +27,8 @@ public partial class ClassEventDAO
 
     public string? Description { get; set; }
 
+    public DateTime? StartAt { get; set; }
+
     public virtual ClassroomDAO Classroom { get; set; } = null!;
 
     public virtual ICollection<CommentDAO> Comments { get; set; } = new List<CommentDAO>();

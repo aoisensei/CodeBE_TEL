@@ -82,6 +82,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             ClassEvent.Pinned = Classroom_ClassEventDTO.Pinned;
             ClassEvent.CreatedAt = Classroom_ClassEventDTO.CreatedAt;
             ClassEvent.EndAt = Classroom_ClassEventDTO.EndAt;
+            ClassEvent.StartAt = Classroom_ClassEventDTO.StartAt;
             ClassEvent.DeletedAt = Classroom_ClassEventDTO.DeletedAt;
             ClassEvent.UpdatedAt = Classroom_ClassEventDTO.UpdatedAt;
 
