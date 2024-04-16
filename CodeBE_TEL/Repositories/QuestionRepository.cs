@@ -26,6 +26,7 @@ namespace CodeBE_TEL.Repositories
             QuestionDAO QuestionDAO = new QuestionDAO();
             QuestionDAO.ClassEventId = Question.ClassEventId;
             QuestionDAO.Description = Question.Description;
+            QuestionDAO.Instruction = Question.Instruction;
             QuestionDAO.Name = Question.Name;
             QuestionDAO.CorrectAnswer = Question.CorrectAnswer;
             QuestionDAO.StudentAnswer = Question.StudentAnswer;
@@ -137,6 +138,7 @@ namespace CodeBE_TEL.Repositories
             if (QuestionDAO == null)
                 return false;
             QuestionDAO.ClassEventId = Question.ClassEventId;
+            QuestionDAO.Instruction = Question.Instruction;
             QuestionDAO.Description = Question.Description;
             QuestionDAO.Name = Question.Name;
             QuestionDAO.CorrectAnswer = Question.CorrectAnswer;

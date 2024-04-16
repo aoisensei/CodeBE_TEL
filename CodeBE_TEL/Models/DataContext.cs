@@ -146,11 +146,11 @@ public partial class DataContext : DbContext
         {
             entity.ToTable("Question");
 
-            entity.Property(e => e.CorrectAnswer).HasMaxLength(5);
+            entity.Property(e => e.CorrectAnswer).HasMaxLength(500);
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Instruction).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(500);
-            entity.Property(e => e.StudentAnswer).HasMaxLength(5);
+            entity.Property(e => e.StudentAnswer).HasMaxLength(500);
 
             entity.HasOne(d => d.ClassEvent).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.ClassEventId)

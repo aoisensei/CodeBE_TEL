@@ -17,7 +17,7 @@ public class Question
 
     public string? Instruction { get; set; }
 
-    public List<Answer> Answers { get; set; } = null!;
+    public List<Answer>? Answers { get; set; } = null!;
 
     public ClassEvent ClassEvent { get; set; } = null!;
 }

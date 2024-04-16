@@ -73,6 +73,7 @@ namespace CodeBE_TEL.Repositories
                     Pinned = x.Pinned,
                     CreatedAt = x.CreatedAt,
                     EndAt = x.EndAt,
+                    StartAt = x.StartAt,
                     UpdatedAt = x.UpdatedAt,
                     DeletedAt = x.DeletedAt,
                     Classroom = new Classroom
@@ -107,6 +108,7 @@ namespace CodeBE_TEL.Repositories
                     Id = x.Id,
                     ClassEventId = x.ClassEventId,
                     Description = x.Description,
+                    Instruction = x.Instruction,
                     Name = x.Name,
                     CorrectAnswer = x.CorrectAnswer,
                     StudentAnswer = x.StudentAnswer,
@@ -129,6 +131,7 @@ namespace CodeBE_TEL.Repositories
                 ClassroomId = x.ClassroomId,
                 Description = x.Description,
                 IsClassWork = x.IsClassWork,
+                StartAt = x.StartAt,
                 Pinned = x.Pinned,
                 CreatedAt = x.CreatedAt,
                 EndAt = x.EndAt,
@@ -160,6 +163,7 @@ namespace CodeBE_TEL.Repositories
                 {
                     Id = x.Id,
                     ClassEventId = x.ClassEventId,
+                    Instruction = x.Instruction,
                     Description = x.Description,
                     Name = x.Name,
                     CorrectAnswer = x.CorrectAnswer,

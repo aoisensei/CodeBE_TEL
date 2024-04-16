@@ -53,6 +53,10 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             Question.Id = Classroom_QuestionDTO.Id;
             Question.ClassEventId = Classroom_QuestionDTO.ClassEventId;
             Question.Description = Classroom_QuestionDTO.Description;
+            Question.Instruction = Classroom_QuestionDTO.Instruction;
+            Question.CorrectAnswer = Classroom_QuestionDTO.CorrectAnswer;
+            Question.StudentAnswer = Classroom_QuestionDTO.StudentAnswer;
+            Question.Name = Classroom_QuestionDTO.Name;
 
             return Question;
         }

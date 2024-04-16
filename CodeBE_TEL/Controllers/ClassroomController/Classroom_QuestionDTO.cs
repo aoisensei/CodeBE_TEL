@@ -16,8 +16,9 @@ namespace CodeBE_TEL.Controllers.ClassroomController
         public string? StudentAnswer { get; set; }
 
         public string? Description { get; set; }
+        public string? Instruction { get; set; }
 
-        public List<Classroom_AnswerDTO> Answers { get; set; }
+        public List<Classroom_AnswerDTO>? Answers { get; set; }
 
         public Classroom_QuestionDTO() { }
         public Classroom_QuestionDTO(Question Question)
@@ -28,7 +29,8 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             CorrectAnswer = Question.CorrectAnswer;
             StudentAnswer = Question.StudentAnswer;
             Description = Question.Description;
-            Answers = Question.Answers.Select(x => new Classroom_AnswerDTO(x)).ToList();
+            Instruction = Question.Instruction;
+            Answers = Question.Answers?.Select(x => new Classroom_AnswerDTO(x)).ToList();
         }
     }
 }

@@ -107,7 +107,7 @@ namespace CodeBE_TEL.Services.ClassroomService
             }
             return null;
         }
-        public async Task<Question> UpdateQuestion(Question Question)
+        public async Task<Question> DeleteQuestion(Question Question)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace CodeBE_TEL.Services.ClassroomService
             }
             return null;
         }
-        public async Task<Question> DeleteQuestion(Question Question)
+        public async Task<Question> UpdateQuestion(Question Question)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace CodeBE_TEL.Services.ClassroomService
             }
             catch (Exception ex)
             {
-
+                throw new Exception();
             }
             return null;
         }
