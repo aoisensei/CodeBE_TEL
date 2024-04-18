@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodeBE_TEL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeBE_TEL.Models;
@@ -17,6 +18,8 @@ public partial class DataContext : DbContext
 
     public virtual DbSet<AnswerDAO> Answers { get; set; }
 
+    public virtual DbSet<AppUserDAO> AppUsers { get; set; }
+
     public virtual DbSet<BoardDAO> Boards { get; set; }
 
     public virtual DbSet<CardDAO> Cards { get; set; }
@@ -30,6 +33,8 @@ public partial class DataContext : DbContext
     public virtual DbSet<JobDAO> Jobs { get; set; }
 
     public virtual DbSet<QuestionDAO> Questions { get; set; }
+
+    public virtual DbSet<StudentAnswerDAO> StudentAnswers { get; set; }
 
     public virtual DbSet<TodoDAO> Todos { get; set; }
 
@@ -49,6 +54,19 @@ public partial class DataContext : DbContext
                 .HasForeignKey(d => d.QuestionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Answer_Question");
+        });
+
+        modelBuilder.Entity<AppUserDAO>(entity =>
+        {
+            entity.ToTable("AppUser");
+
+            entity.Property(e => e.Email).HasMaxLength(500);
+            entity.Property(e => e.FullName).HasMaxLength(500);
+            entity.Property(e => e.Gender).HasMaxLength(500);
+            entity.Property(e => e.Password).HasMaxLength(500);
+            entity.Property(e => e.Phone).HasMaxLength(500);
+            entity.Property(e => e.Status).HasMaxLength(500);
+            entity.Property(e => e.UserName).HasMaxLength(500);
         });
 
         modelBuilder.Entity<BoardDAO>(entity =>
@@ -93,6 +111,10 @@ public partial class DataContext : DbContext
             entity.Property(e => e.StartAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
+            entity.HasOne(d => d.AppUser).WithMany(p => p.ClassEvents)
+                .HasForeignKey(d => d.AppUserId)
+                .HasConstraintName("FK_ClassEvent_AppUser");
+
             entity.HasOne(d => d.Classroom).WithMany(p => p.ClassEvents)
                 .HasForeignKey(d => d.ClassroomId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -115,9 +137,16 @@ public partial class DataContext : DbContext
         {
             entity.ToTable("Comment");
 
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.DeletedAt).HasColumnType("datetime");
             entity.Property(e => e.Description)
                 .HasMaxLength(500)
                 .IsFixedLength();
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+
+            entity.HasOne(d => d.AppUser).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.AppUserId)
+                .HasConstraintName("FK_Comment_AppUser");
 
             entity.HasOne(d => d.ClassEvent).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.ClassEventId)
@@ -150,12 +179,35 @@ public partial class DataContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Instruction).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(500);
-            entity.Property(e => e.StudentAnswer).HasMaxLength(500);
 
             entity.HasOne(d => d.ClassEvent).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.ClassEventId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Question_ClassEvent");
+        });
+
+        modelBuilder.Entity<StudentAnswerDAO>(entity =>
+        {
+            entity.ToTable("StudentAnswer");
+
+            entity.Property(e => e.Feedback).HasMaxLength(500);
+            entity.Property(e => e.GradeAt).HasColumnType("datetime");
+            entity.Property(e => e.Name).HasMaxLength(500);
+            entity.Property(e => e.SubmitAt).HasColumnType("datetime");
+
+            entity.HasOne(d => d.AppUserFeedback).WithMany(p => p.StudentAnswerFeedbacks)
+                .HasForeignKey(d => d.AppUserFeedbackId)
+                .HasConstraintName("FK_StudentAnswer_AppUser1");
+
+            entity.HasOne(d => d.AppUser).WithMany(p => p.StudentAnswers)
+                .HasForeignKey(d => d.AppUserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_StudentAnswer_AppUser");
+
+            entity.HasOne(d => d.Question).WithMany(p => p.StudentAnswers)
+                .HasForeignKey(d => d.QuestionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_StudentAnswer_Question");
         });
 
         modelBuilder.Entity<TodoDAO>(entity =>

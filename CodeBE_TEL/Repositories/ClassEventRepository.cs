@@ -37,10 +37,11 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.StartAt = ClassEvent.StartAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;
             ClassEventDAO.DeletedAt = ClassEvent.DeletedAt;
+            ClassEventDAO.AppUserId = ClassEvent.AppUserId;
             DataContext.ClassEvents.Add(ClassEventDAO);
             await DataContext.SaveChangesAsync();
             ClassEvent.Id = ClassEventDAO.Id;
-            await SaveReference(ClassEvent);
+            //await SaveReference(ClassEvent);
             return true;
         }
 
@@ -53,7 +54,7 @@ namespace CodeBE_TEL.Repositories
                 return false;
             ClassEventDAO.DeletedAt = DateTime.Now;
             await DataContext.SaveChangesAsync();
-            await SaveReference(ClassEvent);
+            //await SaveReference(ClassEvent);
             return true;
         }
 
@@ -68,6 +69,7 @@ namespace CodeBE_TEL.Repositories
                     Name = x.Name,
                     Code = x.Code,
                     ClassroomId = x.ClassroomId,
+                    AppUserId = x.AppUserId,
                     Description = x.Description,
                     IsClassWork = x.IsClassWork,
                     Pinned = x.Pinned,
@@ -86,19 +88,32 @@ namespace CodeBE_TEL.Repositories
                         UpdatedAt = x.Classroom.UpdatedAt,
                         DeletedAt = x.Classroom.DeletedAt,
                     },
+                    AppUser = new AppUser
+                    {
+                        Id = x.AppUser.Id,
+                        UserName = x.AppUser.UserName
+                    }
                 }).FirstOrDefaultAsync();
 
             if (ClassEvent == null)
                 return null;
 
             ClassEvent.Comments =  await DataContext.Comments.AsNoTracking()
+                .Where(x => x.DeletedAt == null)
                 .Where(x => x.ClassEventId == ClassEvent.Id)
                 .Select(x => new Comment
                 {
                     Id = x.Id,
                     ClassEventId = x.ClassEventId,
                     Description = x.Description,
-
+                    CreatedAt = x.CreatedAt,
+                    UpdatedAt = x.UpdatedAt,
+                    AppUserId = x.AppUserId,
+                    AppUser = new AppUser
+                    {
+                        Id = x.AppUser.Id,
+                        UserName = x.AppUser.UserName,
+                    }
                 }).ToListAsync();
 
             ClassEvent.Questions = await DataContext.Questions.AsNoTracking()
@@ -111,8 +126,6 @@ namespace CodeBE_TEL.Repositories
                     Instruction = x.Instruction,
                     Name = x.Name,
                     CorrectAnswer = x.CorrectAnswer,
-                    StudentAnswer = x.StudentAnswer,
-
                 }).ToListAsync();
 
             return ClassEvent;
@@ -129,6 +142,7 @@ namespace CodeBE_TEL.Repositories
                 Name = x.Name,
                 Code = x.Code,
                 ClassroomId = x.ClassroomId,
+                AppUserId = x.AppUserId,
                 Description = x.Description,
                 IsClassWork = x.IsClassWork,
                 StartAt = x.StartAt,
@@ -147,15 +161,28 @@ namespace CodeBE_TEL.Repositories
                     UpdatedAt = x.Classroom.UpdatedAt,
                     DeletedAt = x.Classroom.DeletedAt,
                 },
+                AppUser = new AppUser
+                {
+                    Id = x.AppUser.Id,
+                    UserName = x.AppUser.UserName
+                }
             }).ToListAsync();
 
             List<Comment> Comments = await DataContext.Comments.AsNoTracking()
+                .Where(x => x.DeletedAt == null)
                 .Select(x => new Comment
                 {
                     Id = x.Id,
                     ClassEventId = x.ClassEventId,
                     Description = x.Description,
-
+                    CreatedAt = x.CreatedAt,
+                    UpdatedAt = x.UpdatedAt,
+                    AppUserId = x.AppUserId,
+                    AppUser = new AppUser
+                    {
+                        Id = x.AppUser.Id,
+                        UserName = x.AppUser.UserName,
+                    }
                 }).ToListAsync();
 
             List<Question> Questions = await DataContext.Questions.AsNoTracking()
@@ -167,7 +194,6 @@ namespace CodeBE_TEL.Repositories
                     Description = x.Description,
                     Name = x.Name,
                     CorrectAnswer = x.CorrectAnswer,
-                    StudentAnswer = x.StudentAnswer,
 
                 }).ToListAsync();
 
@@ -202,6 +228,7 @@ namespace CodeBE_TEL.Repositories
             ClassEventDAO.CreatedAt = ClassEvent.CreatedAt;
             ClassEventDAO.EndAt = ClassEvent.EndAt;
             ClassEventDAO.UpdatedAt = ClassEvent.UpdatedAt;
+            ClassEventDAO.AppUserId = ClassEvent.AppUserId;
             ClassEventDAO.DeletedAt = ClassEvent.DeletedAt;
             await DataContext.SaveChangesAsync();
             //await SaveReference(ClassEvent);
@@ -271,7 +298,6 @@ namespace CodeBE_TEL.Repositories
                     QuestionDAO.ClassEventId = ClassEvent.Id;
                     QuestionDAO.Name = Question.Name;
                     QuestionDAO.CorrectAnswer = Question.CorrectAnswer;
-                    QuestionDAO.StudentAnswer = Question.StudentAnswer;
                     QuestionDAO.Description = Question.Description;
                     QuestionDAOs.Add(QuestionDAO);
                 }

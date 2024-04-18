@@ -29,6 +29,10 @@ public partial class ClassEventDAO
 
     public DateTime? StartAt { get; set; }
 
+    public long? AppUserId { get; set; }
+
+    public virtual AppUserDAO? AppUser { get; set; }
+
     public virtual ClassroomDAO Classroom { get; set; } = null!;
 
     public virtual ICollection<CommentDAO> Comments { get; set; } = new List<CommentDAO>();

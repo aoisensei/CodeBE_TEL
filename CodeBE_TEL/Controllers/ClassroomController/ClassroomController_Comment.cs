@@ -52,6 +52,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             Comment Comment = new Comment();
             Comment.Id = Classroom_CommentDTO.Id;
             Comment.ClassEventId = Classroom_CommentDTO.ClassEventId;
+            Comment.AppUserId = Classroom_CommentDTO.AppUserId;
             Comment.Description = Classroom_CommentDTO.Description;
 
             return Comment;

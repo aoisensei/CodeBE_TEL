@@ -29,7 +29,6 @@ namespace CodeBE_TEL.Repositories
             QuestionDAO.Instruction = Question.Instruction;
             QuestionDAO.Name = Question.Name;
             QuestionDAO.CorrectAnswer = Question.CorrectAnswer;
-            QuestionDAO.StudentAnswer = Question.StudentAnswer;
             DataContext.Questions.Add(QuestionDAO);
             await DataContext.SaveChangesAsync();
             Question.Id = QuestionDAO.Id;
@@ -60,7 +59,6 @@ namespace CodeBE_TEL.Repositories
                     Description = x.Description,
                     Name = x.Name,
                     CorrectAnswer = x.CorrectAnswer,
-                    StudentAnswer = x.StudentAnswer,
                     ClassEvent = new ClassEvent
                     {
                         Id = x.ClassEvent.Id,
@@ -100,7 +98,6 @@ namespace CodeBE_TEL.Repositories
                 Description = x.Description,
                 Name = x.Name,
                 CorrectAnswer = x.CorrectAnswer,
-                StudentAnswer = x.StudentAnswer,
                 ClassEvent = new ClassEvent
                 {
                     Id = x.ClassEvent.Id,
@@ -142,7 +139,6 @@ namespace CodeBE_TEL.Repositories
             QuestionDAO.Description = Question.Description;
             QuestionDAO.Name = Question.Name;
             QuestionDAO.CorrectAnswer = Question.CorrectAnswer;
-            QuestionDAO.StudentAnswer = Question.StudentAnswer;
             await DataContext.SaveChangesAsync();
             await SaveReference(Question);
             return true;

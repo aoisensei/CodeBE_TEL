@@ -26,5 +26,8 @@ namespace CodeBE_TEL.Controllers.ClassroomController
         public const string UpdateQuestion = Module + "/update-question";
         public const string DeleteQuestion = Module + "/delete-question";
 
+        public const string CreateStudentAnswer = Module + "/create-student-answer";
+        public const string UpdateStudentAnswer = Module + "/update-student-answer";
+
     }
 }

@@ -15,6 +15,7 @@ public class Classroom_ClassEventDTO
     public bool IsClassWork { get; set; }
 
     public bool Pinned { get; set; }
+    public long? AppUserId { get; set; }
 
     public string? Description { get; set; }
 
@@ -28,6 +29,7 @@ public class Classroom_ClassEventDTO
     public DateTime? DeletedAt { get; set; }
 
     public List<Classroom_CommentDTO>? Comments { get; set; }
+    public Classroom_AppUserDTO? AppUser { get; set; } = null!;
     public List<Classroom_QuestionDTO>? Questions { get; set; }
 
     public Classroom_ClassEventDTO() { }
@@ -47,5 +49,6 @@ public class Classroom_ClassEventDTO
         DeletedAt = ClassEvent.DeletedAt;
         Comments = ClassEvent.Comments?.Select(x => new Classroom_CommentDTO(x)).ToList();
         Questions = ClassEvent.Questions?.Select(x => new Classroom_QuestionDTO(x)).ToList();
+        AppUser = ClassEvent.AppUser == null ? null : new Classroom_AppUserDTO(ClassEvent.AppUser);
     }
 }

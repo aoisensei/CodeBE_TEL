@@ -18,6 +18,8 @@ namespace CodeBE_TEL.Services.ClassroomService
         Task<Question> CreateQuestion(Question Question);
         Task<Question> UpdateQuestion(Question Question);
         Task<Question> DeleteQuestion(Question Question);
+        Task<StudentAnswer> CreateStudentAnswer(StudentAnswer StudentAnswer);
+        Task<StudentAnswer> UpdateStudentAnswer(StudentAnswer StudentAnswer);
     }
     public class ClassEventService : BaseService<ClassEvent>, IClassEventService
     {
@@ -142,6 +144,45 @@ namespace CodeBE_TEL.Services.ClassroomService
             }
             return null;
         }
+
+        public async Task<StudentAnswer> CreateStudentAnswer(StudentAnswer StudentAnswer)
+        {
+            try
+            {
+                var QuestionId = await UOW.QuestionRepository.Get(StudentAnswer.QuestionId);
+
+                if (QuestionId != null)
+                {
+                    await UOW.StudentAnswerRepository.Create(StudentAnswer);
+                    StudentAnswer = await UOW.StudentAnswerRepository.Get(StudentAnswer.Id);
+                    return StudentAnswer;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+            return null;
+        }
+        public async Task<StudentAnswer> UpdateStudentAnswer(StudentAnswer StudentAnswer)
+        {
+            try
+            {
+                var oldData = await UOW.StudentAnswerRepository.Get(StudentAnswer.Id);
+
+                StudentAnswer.QuestionId = oldData.QuestionId;
+                await UOW.StudentAnswerRepository.Update(StudentAnswer);
+
+                StudentAnswer = await UOW.StudentAnswerRepository.Get(StudentAnswer.Id);
+                return StudentAnswer;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+            return null;
+        }
         public async Task<ClassEvent> Create(ClassEvent ClassEvent)
         {
             if (!await ClassEventValidator.Create(ClassEvent))
@@ -192,6 +233,23 @@ namespace CodeBE_TEL.Services.ClassroomService
         public async Task<ClassEvent> Get(long Id)
         {
             ClassEvent ClassEvent = await UOW.ClassEventRepository.Get(Id);
+
+            if (ClassEvent.Questions != null && ClassEvent.Questions.Count > 0)
+            {
+                Question QuestionInDb = ClassEvent.Questions.FirstOrDefault();
+
+                if (QuestionInDb != null)
+                {
+                    List<StudentAnswer> StudentAnswers = await UOW.StudentAnswerRepository.List(QuestionInDb.Id);
+
+                    foreach (Question Question in ClassEvent.Questions)
+                    {
+                        Question.StudentAnswers = StudentAnswers;
+
+                    }
+                } 
+            }
+
             if (ClassEvent == null)
                 return null;
             await ClassEventValidator.Get(ClassEvent);

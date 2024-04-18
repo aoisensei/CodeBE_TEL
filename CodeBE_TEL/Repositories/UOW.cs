@@ -10,6 +10,7 @@ namespace CodeBE_TEL.Repositories
         IClassEventRepository ClassEventRepository { get; }
         ICommentRepository  CommentRepository { get; }
         IQuestionRepository QuestionRepository { get; }
+        IStudentAnswerRepository StudentAnswerRepository { get; }
     }
     public class UOW : IUOW
     {
@@ -20,6 +21,7 @@ namespace CodeBE_TEL.Repositories
         public IClassEventRepository ClassEventRepository { get; private set; }
         public ICommentRepository CommentRepository { get; private set; }
         public IQuestionRepository QuestionRepository { get; private set; }
+        public IStudentAnswerRepository StudentAnswerRepository { get; private set; }
 
         public UOW(DataContext DataContext)
         {
@@ -30,6 +32,7 @@ namespace CodeBE_TEL.Repositories
             this.ClassEventRepository = new ClassEventRepository(DataContext);
             this.CommentRepository = new CommentRepository(DataContext);
             this.QuestionRepository = new QuestionRepository(DataContext);
+            this.StudentAnswerRepository = new StudentAnswerRepository(DataContext);
         }
     }
 }

@@ -75,6 +75,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             ClassEvent ClassEvent = new ClassEvent();
             ClassEvent.Id = Classroom_ClassEventDTO.Id;
             ClassEvent.ClassroomId = Classroom_ClassEventDTO.ClassroomId;
+            ClassEvent.AppUserId = Classroom_ClassEventDTO.AppUserId;
             ClassEvent.Code = Classroom_ClassEventDTO.Code;
             ClassEvent.Name = Classroom_ClassEventDTO.Name;
             ClassEvent.IsClassWork = Classroom_ClassEventDTO.IsClassWork;
@@ -102,7 +103,6 @@ namespace CodeBE_TEL.Controllers.ClassroomController
                     Description = x.Description,
                     Name = x.Name,
                     CorrectAnswer = x.CorrectAnswer,
-                    StudentAnswer = x.StudentAnswer,
                 }).ToList();
 
             return ClassEvent;

@@ -120,7 +120,6 @@ namespace CodeBE_TEL.Controllers.ClassroomController
                         ClassEventId = y.ClassEventId,
                         Name = y.Name,
                         CorrectAnswer = y.CorrectAnswer,
-                        StudentAnswer = y.StudentAnswer,
                     }).ToList(),
                 }).ToList();
 

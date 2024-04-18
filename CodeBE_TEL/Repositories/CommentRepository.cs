@@ -24,7 +24,10 @@ namespace CodeBE_TEL.Repositories
         {
             CommentDAO CommentDAO = new CommentDAO();
             CommentDAO.ClassEventId = Comment.ClassEventId;
+            CommentDAO.AppUserId = Comment.AppUserId;
             CommentDAO.Description = Comment.Description;
+            CommentDAO.CreatedAt = DateTime.Now;
+            CommentDAO.UpdatedAt = DateTime.Now;
             DataContext.Comments.Add(CommentDAO);
             await DataContext.SaveChangesAsync();
             Comment.Id = CommentDAO.Id;
@@ -38,7 +41,11 @@ namespace CodeBE_TEL.Repositories
                 .FirstOrDefault();
             if (CommentDAO == null)
                 return false;
-            DataContext.Comments.Remove(CommentDAO);
+            CommentDAO.ClassEventId = Comment.ClassEventId;
+            CommentDAO.AppUserId = Comment.AppUserId;
+            CommentDAO.UpdatedAt = DateTime.Now;
+            CommentDAO.DeletedAt = DateTime.Now;
+            CommentDAO.Description = Comment.Description;
             await DataContext.SaveChangesAsync();
             return true;
         }
@@ -46,6 +53,7 @@ namespace CodeBE_TEL.Repositories
         public async Task<Comment> Get(long Id)
         {
             Comment? Comment = await DataContext.Comments.AsNoTracking()
+                .Where(x => x.DeletedAt == null)
                 .Where(x => x.Id == Id)
                 .Select(x => new Comment
                 {
@@ -58,6 +66,7 @@ namespace CodeBE_TEL.Repositories
                         Name = x.ClassEvent.Name,
                         Code = x.ClassEvent.Code,
                         ClassroomId = x.ClassEvent.ClassroomId,
+                        AppUserId = x.ClassEvent.AppUserId,
                         Description = x.ClassEvent.Description,
                         IsClassWork = x.ClassEvent.IsClassWork,
                         Pinned = x.ClassEvent.Pinned,
@@ -75,6 +84,11 @@ namespace CodeBE_TEL.Repositories
                             UpdatedAt = x.ClassEvent.Classroom.UpdatedAt,
                             DeletedAt = x.ClassEvent.Classroom.DeletedAt,
                         },
+                        AppUser = new AppUser
+                        {
+                            Id = x.AppUser.Id,
+                            UserName = x.AppUser.UserName
+                        }
                     },
                 }).FirstOrDefaultAsync();
 
@@ -84,11 +98,13 @@ namespace CodeBE_TEL.Repositories
         public async Task<List<Comment>> List()
         {
             List<Comment> Comments = await DataContext.Comments.AsNoTracking()
+            .Where(x => x.DeletedAt == null)
             .Select(x => new Comment
             {
                 Id = x.Id,
                 ClassEventId = x.ClassEventId,
                 Description = x.Description,
+                AppUserId = x.AppUserId,
                 ClassEvent = new ClassEvent
                 {
                     Id = x.ClassEvent.Id,
@@ -112,6 +128,11 @@ namespace CodeBE_TEL.Repositories
                         UpdatedAt = x.ClassEvent.Classroom.UpdatedAt,
                         DeletedAt = x.ClassEvent.Classroom.DeletedAt,
                     },
+                    AppUser = new AppUser
+                    {
+                        Id = x.AppUser.Id,
+                        UserName = x.AppUser.UserName
+                    }
                 },
             }).ToListAsync();
 
@@ -126,6 +147,8 @@ namespace CodeBE_TEL.Repositories
             if (CommentDAO == null)
                 return false;
             CommentDAO.ClassEventId = Comment.ClassEventId;
+            CommentDAO.AppUserId = Comment.AppUserId;
+            CommentDAO.UpdatedAt = DateTime.Now;
             CommentDAO.Description = Comment.Description;
             await DataContext.SaveChangesAsync();
             return true;
