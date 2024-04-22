@@ -11,6 +11,7 @@ public partial class CommentDAO
 
     public string Description { get; set; } = null!;
 
+    public long? JobId { get; set; }
     public long? AppUserId { get; set; }
     public DateTime? CreatedAt { get; set; }
 
@@ -21,4 +22,5 @@ public partial class CommentDAO
     public virtual AppUserDAO? AppUser { get; set; }
 
     public virtual ClassEventDAO ClassEvent { get; set; } = null!;
+    public virtual JobDAO? Job { get; set; }
 }

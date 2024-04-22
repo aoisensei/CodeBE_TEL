@@ -25,6 +25,7 @@ namespace CodeBE_TEL.Repositories
             CommentDAO CommentDAO = new CommentDAO();
             CommentDAO.ClassEventId = Comment.ClassEventId;
             CommentDAO.AppUserId = Comment.AppUserId;
+            CommentDAO.JobId = Comment.JobId;
             CommentDAO.Description = Comment.Description;
             CommentDAO.CreatedAt = DateTime.Now;
             CommentDAO.UpdatedAt = DateTime.Now;
@@ -42,6 +43,7 @@ namespace CodeBE_TEL.Repositories
             if (CommentDAO == null)
                 return false;
             CommentDAO.ClassEventId = Comment.ClassEventId;
+            CommentDAO.JobId = Comment.JobId;
             CommentDAO.AppUserId = Comment.AppUserId;
             CommentDAO.UpdatedAt = DateTime.Now;
             CommentDAO.DeletedAt = DateTime.Now;
@@ -59,6 +61,8 @@ namespace CodeBE_TEL.Repositories
                 {
                     Id = x.Id,
                     ClassEventId = x.ClassEventId,
+                    AppUserId = x.AppUserId,
+                    JobId = x.JobId,
                     Description = x.Description,
                     ClassEvent = new ClassEvent
                     {
@@ -84,12 +88,17 @@ namespace CodeBE_TEL.Repositories
                             UpdatedAt = x.ClassEvent.Classroom.UpdatedAt,
                             DeletedAt = x.ClassEvent.Classroom.DeletedAt,
                         },
-                        AppUser = new AppUser
-                        {
-                            Id = x.AppUser.Id,
-                            UserName = x.AppUser.UserName
-                        }
                     },
+                    AppUser = new AppUser
+                    {
+                        Id = x.AppUser.Id,
+                        UserName = x.AppUser.UserName
+                    },
+                    Job = new Job
+                    {
+                        Id = x.Job.Id,
+
+                    }
                 }).FirstOrDefaultAsync();
 
             return Comment;
@@ -104,6 +113,7 @@ namespace CodeBE_TEL.Repositories
                 Id = x.Id,
                 ClassEventId = x.ClassEventId,
                 Description = x.Description,
+                JobId = x.JobId,
                 AppUserId = x.AppUserId,
                 ClassEvent = new ClassEvent
                 {
@@ -128,12 +138,17 @@ namespace CodeBE_TEL.Repositories
                         UpdatedAt = x.ClassEvent.Classroom.UpdatedAt,
                         DeletedAt = x.ClassEvent.Classroom.DeletedAt,
                     },
-                    AppUser = new AppUser
-                    {
-                        Id = x.AppUser.Id,
-                        UserName = x.AppUser.UserName
-                    }
                 },
+                AppUser = new AppUser
+                {
+                    Id = x.AppUser.Id,
+                    UserName = x.AppUser.UserName
+                },
+                Job = new Job
+                {
+                    Id = x.Job.Id,
+
+                }
             }).ToListAsync();
 
             return Comments;
@@ -147,6 +162,7 @@ namespace CodeBE_TEL.Repositories
             if (CommentDAO == null)
                 return false;
             CommentDAO.ClassEventId = Comment.ClassEventId;
+            CommentDAO.JobId = Comment.JobId;
             CommentDAO.AppUserId = Comment.AppUserId;
             CommentDAO.UpdatedAt = DateTime.Now;
             CommentDAO.Description = Comment.Description;

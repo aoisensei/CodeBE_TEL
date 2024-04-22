@@ -174,6 +174,39 @@ namespace CodeBE_TEL.Repositories
                 }
                 await DataContext.BulkMergeAsync(AnswerDAOs);
             }
+
+            if (Question.StudentAnswers == null || Question.StudentAnswers.Count == 0)
+            {
+                await DataContext.StudentAnswers
+                    .Where(x => x.QuestionId == Question.Id)
+                    .DeleteFromQueryAsync();
+            }
+            else
+            {
+                var StudentAnswersIds = Question.StudentAnswers.Select(x => x.Id).Distinct().ToList();
+                await DataContext.StudentAnswers
+                    .Where(x => x.QuestionId == Question.Id)
+                    .Where(x => !StudentAnswersIds.Contains(x.Id))
+                    .DeleteFromQueryAsync();
+
+                List<StudentAnswerDAO> StudentAnswerDAOs = new List<StudentAnswerDAO>();
+                foreach (StudentAnswer StudentAnswer in Question.StudentAnswers)
+                {
+                    StudentAnswerDAO StudentAnswerDAO = new StudentAnswerDAO();
+                    StudentAnswerDAO.Id = StudentAnswer.Id;
+                    StudentAnswerDAO.AppUserId = StudentAnswer.AppUserId;
+                    StudentAnswerDAO.Name = StudentAnswer.Name;
+                    StudentAnswerDAO.AppUserFeedbackId = StudentAnswer.AppUserFeedbackId;
+                    StudentAnswerDAO.Grade = StudentAnswer.Grade;
+                    StudentAnswerDAO.GradeAt = StudentAnswer.GradeAt;
+                    StudentAnswerDAO.Feedback = StudentAnswer.Feedback;
+                    StudentAnswerDAO.SubmitAt = StudentAnswer.SubmitAt;
+                    StudentAnswerDAO.QuestionId = Question.Id;
+
+                    StudentAnswerDAOs.Add(StudentAnswerDAO);
+                }
+                await DataContext.BulkMergeAsync(StudentAnswerDAOs);
+            }
         }
     }
 }

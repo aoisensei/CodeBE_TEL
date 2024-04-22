@@ -8,6 +8,7 @@
 
         public long QuestionId { get; set; }
 
+        public long? ClassEventId { get; set; }
         public long AppUserId { get; set; }
         public long? AppUserFeedbackId { get; set; }
 

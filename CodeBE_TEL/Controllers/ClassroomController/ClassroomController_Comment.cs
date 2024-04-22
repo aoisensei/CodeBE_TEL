@@ -53,6 +53,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
             Comment.Id = Classroom_CommentDTO.Id;
             Comment.ClassEventId = Classroom_CommentDTO.ClassEventId;
             Comment.AppUserId = Classroom_CommentDTO.AppUserId;
+            Comment.JobId = Classroom_CommentDTO.JobId;
             Comment.Description = Classroom_CommentDTO.Description;
 
             return Comment;

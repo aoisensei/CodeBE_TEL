@@ -6,7 +6,8 @@ namespace CodeBE_TEL.Repositories
 {
     public interface IStudentAnswerRepository
     {
-        Task<List<StudentAnswer>> List(long Id);
+        Task<List<StudentAnswer>> List(List<long> Ids);
+        Task<List<StudentAnswer>> Detail(long Id);
         Task<StudentAnswer> Get(long Id);
         Task<bool> Create(StudentAnswer StudentAnswer);
         Task<bool> Update(StudentAnswer StudentAnswer);
@@ -53,40 +54,80 @@ namespace CodeBE_TEL.Repositories
                 .Select(x => new StudentAnswer
                 {
                     Id = x.Id,
-                    Name = x.Name,
-                    QuestionId = x.QuestionId,
-                    AppUserId = x.AppUserId,
-                    Grade = x.Grade,
-                    AppUserFeedbackId = x.AppUserFeedbackId,
-                    GradeAt = x.GradeAt,
-                    Feedback = x.Feedback,
-                    SubmitAt = x.SubmitAt,
-                    Question = new Question
-                    {
-                        Id = x.Question.Id,
-                        Name = x.Question.Name,
-                        ClassEventId = x.Question.ClassEventId,
-                        Description = x.Question.Description,
-                    },
-                    AppUser = new AppUser
-                    {
-                        Id = x.AppUser.Id,
-                        UserName = x.AppUser.UserName
-                    },
-                    AppUserFeedback = new AppUser
-                    {
-                        Id = x.AppUserFeedback.Id,
-                        UserName = x.AppUserFeedback.UserName
-                    }
+                    //Name = x.Name,
+                    //QuestionId = x.QuestionId,
+                    //AppUserId = x.AppUserId,
+                    //Grade = x.Grade,
+                    //AppUserFeedbackId = x.AppUserFeedbackId,
+                    //GradeAt = x.GradeAt,
+                    //Feedback = x.Feedback,
+                    //SubmitAt = x.SubmitAt,
+                    //Question = new Question
+                    //{
+                    //    Id = x.Question.Id,
+                    //    Name = x.Question.Name,
+                    //    ClassEventId = x.Question.ClassEventId,
+                    //    Description = x.Question.Description,
+                    //},
+                    //AppUser = new AppUser
+                    //{
+                    //    Id = x.AppUser.Id,
+                    //    UserName = x.AppUser.UserName
+                    //},
+                    //AppUserFeedback = new AppUser
+                    //{
+                    //    Id = x.AppUserFeedback.Id,
+                    //    UserName = x.AppUserFeedback.UserName
+                    //}
                 }).FirstOrDefaultAsync();
 
             return StudentAnswer;
         }
 
-        public async Task<List<StudentAnswer>> List(long Id)
+        public async Task<List<StudentAnswer>> List(List<long> Ids)
         {
             List<StudentAnswer> StudentAnswers = await DataContext.StudentAnswers.AsNoTracking()
-            .Where (x => x.QuestionId == Id)
+            .Where (x => Ids.Contains(x.QuestionId))
+            .Select(x => new StudentAnswer
+            {
+                Id = x.Id,
+                Name = x.Name,
+                //QuestionId = x.QuestionId,
+                AppUserId = x.AppUserId,
+                Grade = x.Grade,
+                //AppUserFeedbackId = x.AppUserFeedbackId,
+                GradeAt = x.GradeAt,
+                Feedback = x.Feedback,
+                SubmitAt = x.SubmitAt,
+                //Question = new Question
+                //{
+                //    Id = x.Question.Id,
+                //    Name = x.Question.Name,
+                //    ClassEventId = x.Question.ClassEventId,
+                //    Description = x.Question.Description,
+                //},
+                AppUser = new AppUser
+                {
+                    Id = x.AppUser.Id,
+                    UserName = x.AppUser.UserName
+                },
+                //AppUserFeedback = new AppUser
+                //{
+                //    Id = x.AppUserFeedback.Id,
+                //    UserName = x.AppUserFeedback.UserName
+                //}
+            }).ToListAsync();
+
+            return StudentAnswers;
+        }
+
+        public async Task<List<StudentAnswer>> Detail(long Id)
+        {
+            List<StudentAnswer> test = await DataContext.StudentAnswers.AsNoTracking()
+            .Where(x => x.AppUserId == Id).Select(x => new StudentAnswer()).ToListAsync();
+
+            List<StudentAnswer> StudentAnswers = await DataContext.StudentAnswers.AsNoTracking()
+            .Where(x => x.AppUserId == Id)
             .Select(x => new StudentAnswer
             {
                 Id = x.Id,
@@ -105,16 +146,16 @@ namespace CodeBE_TEL.Repositories
                     ClassEventId = x.Question.ClassEventId,
                     Description = x.Question.Description,
                 },
-                AppUser = new AppUser
-                {
-                    Id = x.AppUser.Id,
-                    UserName = x.AppUser.UserName
-                },
-                AppUserFeedback = new AppUser
-                {
-                    Id = x.AppUserFeedback.Id,
-                    UserName = x.AppUserFeedback.UserName
-                }
+                //AppUser = new AppUser
+                //{
+                //    Id = x.AppUser.Id,
+                //    UserName = x.AppUser.UserName
+                //},
+                //AppUserFeedback = new AppUser
+                //{
+                //    Id = x.AppUserFeedback.Id,
+                //    UserName = x.AppUserFeedback.UserName
+                //}
             }).ToListAsync();
 
             return StudentAnswers;

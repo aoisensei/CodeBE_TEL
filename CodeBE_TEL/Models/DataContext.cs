@@ -150,8 +150,11 @@ public partial class DataContext : DbContext
 
             entity.HasOne(d => d.ClassEvent).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.ClassEventId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Comment_ClassEvent");
+
+            entity.HasOne(d => d.Job).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.JobId)
+                .HasConstraintName("FK_Comment_Job");
         });
 
         modelBuilder.Entity<JobDAO>(entity =>

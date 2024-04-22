@@ -12,7 +12,9 @@ public class Comment
     public DateTime? UpdatedAt { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+    public long? JobId { get; set; }
     public long? AppUserId { get; set; }
     public AppUser AppUser { get; set; } = null!;
+    public Job Job { get; set; } = null!;
     public ClassEvent ClassEvent { get; set; } = null!;
 }

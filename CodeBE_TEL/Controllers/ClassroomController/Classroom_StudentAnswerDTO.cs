@@ -14,6 +14,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
         public long? AppUserFeedbackId { get; set; }
 
         public long? Grade { get; set; }
+        public long? ClassEventId { get; set; }
 
         public DateTime? GradeAt { get; set; }
 

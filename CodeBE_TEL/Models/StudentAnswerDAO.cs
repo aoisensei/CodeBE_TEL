@@ -23,7 +23,7 @@ public partial class StudentAnswerDAO
 
     public DateTime? SubmitAt { get; set; }
     public virtual AppUserDAO AppUser { get; set; } = null!;
-    public virtual AppUserDAO AppUserFeedback { get; set; } = null!;
+    public virtual AppUserDAO? AppUserFeedback { get; set; } = null!;
 
     public virtual QuestionDAO Question { get; set; } = null!;
 }

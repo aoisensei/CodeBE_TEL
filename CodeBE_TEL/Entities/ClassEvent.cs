@@ -10,6 +10,7 @@ public class ClassEvent : IFilterable
     public long ClassroomId { get; set; }
 
     public string Code { get; set; } = null!;
+    public bool IsSubmit { get; set; }
 
     public string Name { get; set; } = null!;
 

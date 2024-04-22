@@ -16,6 +16,7 @@ public class Classroom_ClassEventDTO
 
     public bool Pinned { get; set; }
     public long? AppUserId { get; set; }
+    public bool IsSubmit { get; set; }
 
     public string? Description { get; set; }
 
@@ -41,6 +42,7 @@ public class Classroom_ClassEventDTO
         Name = ClassEvent.Name;
         Description = ClassEvent.Description;
         Pinned = ClassEvent.Pinned;
+        IsSubmit = ClassEvent.IsSubmit;
         IsClassWork = ClassEvent.IsClassWork;
         CreatedAt = ClassEvent.CreatedAt;
         EndAt = ClassEvent.EndAt;

@@ -1,3 +1,4 @@
+using CodeBE_TEL.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -24,4 +25,5 @@ public partial class JobDAO
     public virtual CardDAO Card { get; set; } = null!;
 
     public virtual ICollection<TodoDAO> Todos { get; set; } = new List<TodoDAO>();
+    public virtual ICollection<CommentDAO> Comments { get; set; } = new List<CommentDAO>();
 }
