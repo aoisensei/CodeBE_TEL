@@ -44,7 +44,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
 
             Comment = await ClassEventService.DeleteComment(Comment);
 
-            return new Classroom_CommentDTO(Comment);
+            return Ok();
         }
 
         private Comment ConvertCommentDTOToEntity(Classroom_CommentDTO Classroom_CommentDTO)

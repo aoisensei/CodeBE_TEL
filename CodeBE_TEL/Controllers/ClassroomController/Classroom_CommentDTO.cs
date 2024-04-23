@@ -22,7 +22,7 @@ namespace CodeBE_TEL.Controllers.ClassroomController
         public Classroom_CommentDTO() { }
         public Classroom_CommentDTO(Comment Comment)
         {
-            Id = Comment.Id;
+            Id = Comment.Id == 0 ? 0 : Comment.Id;
             ClassEventId = Comment.ClassEventId;
             Description = Comment.Description;
             CreatedAt = Comment.CreatedAt;

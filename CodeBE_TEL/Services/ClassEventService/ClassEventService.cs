@@ -306,7 +306,7 @@ namespace CodeBE_TEL.Services.ClassroomService
             {
                 List<ClassEvent> ClassEvents = await UOW.ClassEventRepository.List(1);
 
-                ClassEvents = FilterData(ClassEvents, FilterDTO);
+                
                 if (FilterDTO.Pinned != null)
                 {
                     ClassEvents = ClassEvents.Where(x => x.Pinned == FilterDTO.Pinned).ToList();
@@ -330,6 +330,7 @@ namespace CodeBE_TEL.Services.ClassroomService
                     }
 
                 }
+                ClassEvents = FilterData(ClassEvents, FilterDTO);
 
                 return ClassEvents;
             }
@@ -347,6 +348,7 @@ namespace CodeBE_TEL.Services.ClassroomService
             try
             {
                 var oldData = await UOW.ClassEventRepository.Get(ClassEvent.Id);
+                ClassEvent.AppUserId = oldData.AppUserId;
                 ClassEvent.CreatedAt = oldData.CreatedAt;
                 ClassEvent.UpdatedAt = DateTime.Now;
                 ClassEvent.DeletedAt = null;

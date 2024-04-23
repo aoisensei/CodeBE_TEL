@@ -42,12 +42,8 @@ namespace CodeBE_TEL.Repositories
                 .FirstOrDefault();
             if (CommentDAO == null)
                 return false;
-            CommentDAO.ClassEventId = Comment.ClassEventId;
-            CommentDAO.JobId = Comment.JobId;
-            CommentDAO.AppUserId = Comment.AppUserId;
             CommentDAO.UpdatedAt = DateTime.Now;
             CommentDAO.DeletedAt = DateTime.Now;
-            CommentDAO.Description = Comment.Description;
             await DataContext.SaveChangesAsync();
             return true;
         }
@@ -89,12 +85,12 @@ namespace CodeBE_TEL.Repositories
                             DeletedAt = x.ClassEvent.Classroom.DeletedAt,
                         },
                     },
-                    AppUser = new AppUser
+                    AppUser = x.AppUser == null ? null : new AppUser
                     {
                         Id = x.AppUser.Id,
                         UserName = x.AppUser.UserName
                     },
-                    Job = new Job
+                    Job = x.Job == null ? null : new Job
                     {
                         Id = x.Job.Id,
 
@@ -139,12 +135,12 @@ namespace CodeBE_TEL.Repositories
                         DeletedAt = x.ClassEvent.Classroom.DeletedAt,
                     },
                 },
-                AppUser = new AppUser
+                AppUser = x.AppUser == null ? null : new AppUser
                 {
                     Id = x.AppUser.Id,
                     UserName = x.AppUser.UserName
                 },
-                Job = new Job
+                Job = x.Job == null ? null : new Job
                 {
                     Id = x.Job.Id,
 

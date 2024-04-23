@@ -54,7 +54,7 @@ namespace CodeBE_TEL.Repositories
                 return false;
             ClassEventDAO.DeletedAt = DateTime.Now;
             await DataContext.SaveChangesAsync();
-            await SaveReference(ClassEvent);
+            //await SaveReference(ClassEvent);
             return true;
         }
 
@@ -78,7 +78,7 @@ namespace CodeBE_TEL.Repositories
                     StartAt = x.StartAt,
                     UpdatedAt = x.UpdatedAt,
                     DeletedAt = x.DeletedAt,
-                    Classroom = new Classroom
+                    Classroom = x.Classroom == null ? null : new Classroom
                     {
                         Id = x.Classroom.Id,
                         Name = x.Classroom.Name,
@@ -88,7 +88,7 @@ namespace CodeBE_TEL.Repositories
                         UpdatedAt = x.Classroom.UpdatedAt,
                         DeletedAt = x.Classroom.DeletedAt,
                     },
-                    AppUser = new AppUser
+                    AppUser = x.AppUser == null ? null : new AppUser
                     {
                         Id = x.AppUser.Id,
                         UserName = x.AppUser.UserName
@@ -109,7 +109,7 @@ namespace CodeBE_TEL.Repositories
                     CreatedAt = x.CreatedAt,
                     UpdatedAt = x.UpdatedAt,
                     AppUserId = x.AppUserId,
-                    AppUser = new AppUser
+                    AppUser = x.AppUser == null ? null : new AppUser
                     {
                         Id = x.AppUser.Id,
                         UserName = x.AppUser.UserName,

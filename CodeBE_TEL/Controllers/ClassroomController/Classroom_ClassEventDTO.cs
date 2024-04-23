@@ -36,7 +36,7 @@ public class Classroom_ClassEventDTO
     public Classroom_ClassEventDTO() { }
     public Classroom_ClassEventDTO(ClassEvent ClassEvent)
     {
-        Id = ClassEvent.Id;
+        Id = ClassEvent.Id == 0 ? 0 : ClassEvent.Id;
         ClassroomId = ClassEvent.ClassroomId;
         Code = ClassEvent.Code;
         Name = ClassEvent.Name;
